@@ -12,7 +12,7 @@ module.exports = {
         allowNull: false,
       },
       price: {
-        type: Sequelize.FLOAT(4, 2),
+        type: Sequelize.DECIMAL(4, 2),
         allowNull: false,
       },
       urlImage: {

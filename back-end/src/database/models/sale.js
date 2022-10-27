@@ -6,8 +6,16 @@ const SaleModel = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true,
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    sellerId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     totalPrice: {
-      type: DataTypes.FLOAT(9, 2),
+      type: DataTypes.DECIMAL(9, 2),
       allowNull: false,
       field: 'total_price',
     },
@@ -22,7 +30,7 @@ const SaleModel = (sequelize, DataTypes) => {
       field: 'delivery_number',
     },
     saleDate: {
-      type: DataTypes.DATETIME,
+      type: DataTypes.DATE,
       allowNull: false,
       field: 'sale_date',
     },
@@ -36,11 +44,11 @@ const SaleModel = (sequelize, DataTypes) => {
   });
 
   Sale.associate = (models) => {
-    Sale.belongsTo(models.User, {
+    Sale.belongsTo(models.users, {
       foreignKey: 'user_id',
       as: 'user',
     });
-    Sale.belongsTo(models.User, {
+    Sale.belongsTo(models.users, {
       foreignKey: 'seller_id',
       as: 'seller',
     });

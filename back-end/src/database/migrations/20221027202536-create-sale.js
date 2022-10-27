@@ -7,8 +7,20 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
       },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'users', key: 'id' },
+        field: 'user_id',
+      },
+      sellerId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'users', key: 'id' },
+        field: 'seller_id',
+      },
       totalPrice: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.DECIMAL(9, 2),
         allowNull: false,
         field: 'total_price',
       },
@@ -23,7 +35,7 @@ module.exports = {
         field: 'delivery_number',
       },
       saleDate: {
-        type: Sequelize.DATETIME,
+        type: Sequelize.DATE,
         allowNull: false,
         field: 'sale_date',
       },

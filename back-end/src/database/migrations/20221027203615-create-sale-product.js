@@ -6,7 +6,7 @@ module.exports = {
         primaryKey: true,
         allowNull: false,
         references: {
-          model: 'Sale',
+          model: 'sales',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -18,7 +18,7 @@ module.exports = {
         primaryKey: true,
         allowNull: false,
         references: {
-          model: 'Product',
+          model: 'products',
           key: 'id',
         },
         onUpdate: 'CASCADE',
