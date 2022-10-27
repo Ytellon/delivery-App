@@ -25,6 +25,10 @@ module.exports = {
         onDelete: 'CASCADE',
         field: 'product_id',
       },
+      quantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      }
     });
   },
 
