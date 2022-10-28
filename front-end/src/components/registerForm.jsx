@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { postRequest } from '../utils/requests';
 
 export default function RegisterForm() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [buttonDisable, setButtonDisable] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const enableButton = () => {
@@ -22,6 +26,24 @@ export default function RegisterForm() {
 
     enableButton();
   }, [email, password, name]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const user = {
+      email,
+      password,
+      name,
+    };
+
+    try {
+      await postRequest('/register', user);
+      navigate('/customer/products');
+    } catch ({ response }) {
+      const { status, data } = response;
+      setErrorMessage(`Erro ${status} - ${data.message}`);
+    }
+  };
 
   return (
     <div>
@@ -64,10 +86,13 @@ export default function RegisterForm() {
           type="button"
           data-testid="common_register__button-register"
           disabled={ buttonDisable }
+          onClick={ handleSubmit }
         >
           Cadastrar
         </button>
       </form>
+      { errorMessage
+      && <p data-testId="common_register__element-invalid_register">{ errorMessage }</p> }
     </div>
   );
 }
