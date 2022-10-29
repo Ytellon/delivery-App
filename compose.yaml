@@ -1,0 +1,76 @@
+services:
+
+  frontend:
+    image: node:16.18
+    platform: linux/x86_64 #  para quem tem MAC
+    container_name: delivery_app_frontend
+    build: ./front-end
+    ports:
+      - 3000:3000
+    working_dir: /app/front-end
+    volumes:
+      - ./front-end:/app/front-end
+    tty: true
+    stdin_open: true
+    command: bash
+    restart: always
+    depends_on:
+      - backend
+    networks:
+      - vitual_wan_Front-to-Back
+
+  backend:
+    image: node:16.18
+    platform: linux/x86_64 # para o MAC
+    container_name: delivery_app_backend
+    build: ./back-end
+    working_dir: /app/back-end
+    volumes:
+      - ./back-end:/app/back-end
+    tty: true
+    stdin_open: true
+    command: bash
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 3001:3001
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      HOSTNAME: db
+      JWT_SECRET: secretJWT
+    networks:
+      - vitual_wan_Front-to-Back
+      - vitual_lan_Back-to-DB
+
+  db:
+    image: mysql:8.0.31
+    platform: linux/x86_64 # para o MAC
+    container_name: delivery_app_db
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_HOST: localhost
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DB_NAME: delivery-app
+    networks:
+      - vitual_lan_Back-to-DB
+    cap_add:
+      - SYS_NICE
+
+networks:
+# The presence of these objects is sufficient to define them
+  vitual_wan_Front-to-Back: {}
+  vitual_lan_Back-to-DB: {}
+
+# As chaves `tty`, `stdin_open` e `command` fazem com que o container fique
+# rodando em segundo plano, bem como tornam possível o uso do comando
+# `docker attach`, já deixando o terminal atual acoplado ao container, direto
+# no bash. Apesar disso, utilizar o attach mais de uma vez irá replicar o
+# terminal, portanto é melhor utilizar o comando `docker exec`.
+
+# A renomeação da rede padrão é feita pois caso contrário o nome da rede será
+# o nome do diretório onde o arquivo atual se encontra, o que pode dificultar
+# a listagem individual.
