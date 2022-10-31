@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postRequest } from '../utils/requests';
+import Button from '../components/button';
+import Input from '../components/input';
 
 export default function RegisterForm() {
   const navigate = useNavigate();
@@ -49,47 +51,37 @@ export default function RegisterForm() {
     <div>
       <h1>Cadastro</h1>
       <form>
-        <label htmlFor="name">
-          Nome
-          <input
-            type="text"
-            name="name"
-            id="name"
-            data-testid="common_register__input-name"
-            value={ name }
-            onChange={ (e) => setName(e.target.value) }
-          />
-        </label>
-        <label htmlFor="email">
-          Email
-          <input
-            type="email"
-            name="email"
-            id="email"
-            data-testid="common_register__input-email"
-            value={ email }
-            onChange={ (e) => setEmail(e.target.value) }
-          />
-        </label>
-        <label htmlFor="password">
-          Senha
-          <input
-            type="password"
-            name="password"
-            id="password"
-            data-testid="common_register__input-password"
-            value={ password }
-            onChange={ (e) => setPassword(e.target.value) }
-          />
-        </label>
-        <button
+        <Input
+          type="text"
+          name="Nome"
+          dataTestId="common_register__input-name"
+          value={ name }
+          onChange={ (e) => setName(e.target.value) }
+          placeholder="Digite seu Nome"
+        />
+        <Input
+          type="email"
+          name="Email"
+          dataTestId="common_register__input-email"
+          value={ email }
+          onChange={ (e) => setEmail(e.target.value) }
+          placeholder=" Digite seu email"
+        />
+        <Input
+          type="password"
+          name="Senha"
+          dataTestId="common_register__input-password"
+          value={ password }
+          onChange={ (e) => setPassword(e.target.value) }
+          placeholder="Digite sua senha"
+        />
+        <Button
           type="button"
-          data-testid="common_register__button-register"
+          name="Cadastrar"
+          dataTestId="common_register__button-register"
           disabled={ buttonDisable }
           onClick={ handleSubmit }
-        >
-          Cadastrar
-        </button>
+        />
       </form>
       { errorMessage
       && <p data-testId="common_register__element-invalid_register">{ errorMessage }</p> }
