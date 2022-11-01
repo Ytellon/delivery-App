@@ -38,7 +38,6 @@ export default function Login() {
       await postRequest('/login', login);
       navigate('/customer/products');
     } catch ({ response }) {
-      log(response.data);
       const { status, data } = response;
       setErrorMessage(`Erro ${status} - ${data.message}`);
     }
@@ -77,7 +76,7 @@ export default function Login() {
         />
       </form>
       { errorMessage
-    && <p data-testId="common_register__element-invalid_register">{ errorMessage }</p> }
+        && <p data-testId="common_login__element-invalid-email">{ errorMessage }</p> }
     </div>
   );
 }
