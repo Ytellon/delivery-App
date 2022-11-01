@@ -1,10 +1,10 @@
 const md5 = require('md5');
 const jwt = require('jsonwebtoken');
-
 const fs = require('fs');
 const path = require('path');
 
 const { User } = require('../../database/models/index');
+const AppError = require('../../error/AppError');
 
 const login = async (loginData) => {
   const { email, password } = loginData;
@@ -12,7 +12,7 @@ const login = async (loginData) => {
   const user = await User.findOne({ where: { email } });
 
   if (!user || md5(password) !== user.password) {
-    throw new Error('User Not Found');
+    throw new AppError(404, 'Not Found');
   }
 
   const { id, role } = user;
