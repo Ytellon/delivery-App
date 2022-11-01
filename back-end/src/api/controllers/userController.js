@@ -8,9 +8,9 @@ const login = async (req, res) => {
 
     res.status(200).json({ token });
   } catch (error) {
-    res.status(404).json({ message: 'User Not Found' })
+    res.status(404).json({ message: 'User Not Found' });
   }
-}
+};
 
 module.exports = {
   login,

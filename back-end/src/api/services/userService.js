@@ -1,10 +1,12 @@
 const md5 = require('md5');
 const jwt = require('jsonwebtoken');
 
+const fs = require('fs');
+
 const { User } = require('../../database/models/index');
 
-const login = async (login) => {
-  const { email, password } = login;
+const login = async (loginData) => {
+  const { email, password } = loginData;
 
   const user = await User.findOne({ where: { email } });
 
@@ -14,8 +16,9 @@ const login = async (login) => {
 
   const { id, role } = user;
 
-  const jwtSecret = require('fs').readFileSync(__dirname + '/../../../jwt.evaluation.key', { encoding: 'utf-8' });
-
+  const jwtSecret = fs
+    .readFileSync(path.join(__dirname, '/../../../jwt.evaluation.key'), { encoding: 'utf-8' });
+  
   const token = jwt.sign({ id, role }, jwtSecret, { expiresIn: '7d' });
 
   return token;
