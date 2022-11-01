@@ -2,6 +2,7 @@ const md5 = require('md5');
 const jwt = require('jsonwebtoken');
 
 const fs = require('fs');
+var path = require('path');
 
 const { User } = require('../../database/models/index');
 
@@ -22,7 +23,7 @@ const login = async (loginData) => {
   const token = jwt.sign({ id, role }, jwtSecret, { expiresIn: '7d' });
 
   return token;
-}
+};
 
 module.exports = {
   login,
