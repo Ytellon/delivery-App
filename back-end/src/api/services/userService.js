@@ -12,7 +12,7 @@ const login = async (loginData) => {
   const user = await User.findOne({ where: { email } });
 
   if (!user || md5(password) !== user.password) {
-    throw new AppError(404, 'User Not Found');
+    throw new AppError(404, 'Not Found');
   }
 
   const { id, role } = user;
