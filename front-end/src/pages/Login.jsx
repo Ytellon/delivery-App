@@ -73,6 +73,7 @@ export default function Login() {
           name="Ainda não tenho conta"
           type="button"
           dataTestId="common_login__button-register"
+          onClick={ () => navigate('/register') }
         />
       </form>
       { errorMessage
