@@ -24,8 +24,7 @@ const userController = {
     } catch (error) {
       res.status(error.code || 500).json({ message: error.message });
     }
-  }
-
+  },
 };
 
 module.exports = userController;

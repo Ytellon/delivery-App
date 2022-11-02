@@ -16,6 +16,4 @@ app.use(express.json());
 app.use(userRoutes);
 app.use(error);
 
-
-
 module.exports = app;

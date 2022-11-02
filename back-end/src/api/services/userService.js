@@ -28,7 +28,6 @@ const userService = {
   },
 
   createUser: async ({ name, email, password }) => {
-
     const user = await User.findOne({ where: { email } });
 
     if (user) {
@@ -39,7 +38,6 @@ const userService = {
 
     return newUser;
   },
-
 };
 
 module.exports = userService;
