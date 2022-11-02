@@ -20,7 +20,7 @@ export default function RegisterForm() {
       const validation = !(
         emailRegex.test(email)
         && name.length > minNameLength
-        && password.length > minPasswordLength
+        && password.length >= minPasswordLength
       );
 
       setButtonDisable(validation);

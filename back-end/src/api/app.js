@@ -1,5 +1,5 @@
 const express = require('express');
-
+const error = require('../error/AppError');
 const userRoutes = require('./routes/userRoutes');
 
 const app = express();
@@ -13,7 +13,9 @@ app.use((_req, res, next) => {
 });
 
 app.use(express.json());
+app.use(userRoutes);
+app.use(error);
 
-app.use('/login', userRoutes);
+
 
 module.exports = app;
