@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Button from '../components/button';
+import Input from '../components/input';
 // import { useNavigate } from 'react-router-dom';
 // import NavBar from '../components/navBar';
 // import axios from 'axios';
@@ -167,27 +168,25 @@ function CustomerCheckout() {
           </select>
         </label>
 
-        <label htmlFor="address">
-          Endereço:
-          <input
-            data-testid="customer_checkout__input-address"
-            type="text"
-            id="address"
-            value={ deliveryAddress }
-            onChange={ ({ target }) => setDeliveryAddress(target.value) }
-          />
-        </label>
+        <Input
+          name="Endereço"
+          type="text"
+          data-testid="customer_checkout__input-address"
+          dataTestId="address"
+          value={ deliveryAddress }
+          onChange={ ({ target }) => setDeliveryAddress(target.value) }
+          placeholder="número"
+        />
 
-        <label htmlFor="addressNumber">
-          Número:
-          <input
-            data-testid="customer_checkout__input-addressNumber"
-            type="text"
-            id="addressNumber"
-            value={ deliveryNumber }
-            onChange={ ({ target }) => setDeliveryNumber(target.value) }
-          />
-        </label>
+        <Input
+          name="Número"
+          type="text"
+          data-testid="customer_checkout__input-address-number"
+          dataTestId="addressNumber"
+          value={ deliveryNumber }
+          onChange={ ({ target }) => setDeliveryNumber(target.value) }
+          placeholder="número"
+        />
 
         <Button
           name="Finalizar Pedido"
