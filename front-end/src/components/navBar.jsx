@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from './button';
 
 function NavBar() {
   const [user, setUser] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem('user')));
@@ -10,34 +13,36 @@ function NavBar() {
   return (
     <div>
       <nav>
-        <button
+        <Button
           type="button"
-          data-testid="customer_products__element-navbar-link-products"
-        >
-          Produtos
-        </button>
+          dataTestId="customer_products__element-navbar-link-products"
+          name="Produtos"
+          onClick={ () => navigate('/customer/products') }
+          disabled={ false }
+        />
 
-        <button
+        <Button
           type="button"
-          data-testid="customer_products__element-navbar-link-orders"
-        >
-          Pedidos
-        </button>
+          dataTestId="customer_products__element-navbar-link-orders"
+          name="Pedidos"
+          onClick={ () => navigate('/customer/checkout') }
+          disabled={ false }
+        />
 
         <span data-testid="customer_products__element-navbar-user-full-name">
           {user?.name}
         </span>
 
-        <button
+        <Button
           type="button"
-          data-testid="customer_products__element-navbar-link-logout"
-        >
-          Sair
-        </button>
+          dataTestId="customer_products__element-navbar-link-logout"
+          onClick={ () => navigate('/login') }
+          disabled={ false }
+        />
 
       </nav>
     </div>
   );
 }
 
-export default NavBar();
+export default NavBar;

@@ -1,9 +1,9 @@
-import Header from '../components/header';
+import NavBar from '../components/navBar';
 
 export default function CustomerProducts() {
   return (
     <div>
-      <Header />
+      <NavBar />
     </div>
   );
 }
