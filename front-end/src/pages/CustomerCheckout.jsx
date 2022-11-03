@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
 // import NavBar from '../components/navBar';
 // import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 // import axios from 'axios';
+// import {getLocalStorage, setLocalStorage}
 
 function CustomerCheckout() {
+  // const navigate = useNavigate();
   const [sellerId, setSellerId] = useState('');
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
+  // const [token, setToken] = useState('');
+  // const [orders, setOrders] = useState([]);
+  // const [sellers, setSellers] = useState([]);
+  // const [totalPrice, setTotalPrice] = useState(0);
 
   // const totalPriceCheckout = () => {
   //   const cart = JSON.parse(localStorage.getItem('carrinho'));
@@ -18,6 +25,17 @@ function CustomerCheckout() {
 
   //   setTotalPrice(total);
   //   setLocalStorage('totalPrice', total);
+  // };
+
+  // const removeItem = (index, name) => {
+  //   const itens = orders.filter((order, i) => i !== index);
+  //   setOrders(itens);
+
+  //   const cart = getLocalStorage('carrinho');
+  //   delete cart[name];
+  //   setLocalStorage('carrinho', cart);
+
+  //   handleTotalPriceChange();
   // };
 
   // const renderOrders = () => (
@@ -66,6 +84,20 @@ function CustomerCheckout() {
   //     <option key={ id } value={ id }>{name}</option>))
   // );
 
+  // const initialState = () => {
+  //   setTotalPrice(getLocalStorage('totalPrice'));
+  //   setUserId(getLocalStorage('user').id);
+  //   setToken(getLocalStorage('user').token);
+  //   setOrders(Object.entries(getLocalStorage('carrinho')));
+  // };
+
+  // const getSellers = async () => {
+  //   const response = await axios.get('http://localhost:3001/seller');
+
+  //   setSellerId(response.data[0].id);
+  //   setSellers(response.data);
+  // };
+
   // const createSale = async () => {
   //   const response = await axios({
   //     method: 'post',
@@ -92,6 +124,11 @@ function CustomerCheckout() {
   //   navigate(`/customer/orders/${data.id}`);
   // };
 
+  // useEffect(() => {
+  //   initialState();
+  //   getSellers();
+  // }, []);
+
   return (
     <div>
       {/* <NavBar /> */}
@@ -111,7 +148,11 @@ function CustomerCheckout() {
           {/* {renderOrders()} */}
         </tbody>
       </table>
-
+      {/* <p
+        data-testid="customer_checkout__element-order-total-price"
+      >
+        { Number(totalPrice).toFixed(2).replace('.', ',') }
+      </p> */}
       <section>
         <label htmlFor="seller">
           P. Vendedora Responsável:
