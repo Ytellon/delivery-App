@@ -7,7 +7,6 @@ import CustomerCheckout from '../pages/CustomerCheckout';
 import CustomerOrders from '../pages/Order';
 import OrderDetails from '../pages/OrderDetails';
 
-
 export default function RouteDelivery() {
   return (
     <Routes>
