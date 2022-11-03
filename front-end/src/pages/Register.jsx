@@ -39,7 +39,10 @@ export default function RegisterForm() {
     };
 
     try {
-      await postRequest('/register', user);
+      const resRegister = await postRequest('/register', user);
+
+      localStorage.setItem('user', JSON.stringify(resRegister));
+
       navigate('/customer/products');
     } catch ({ response }) {
       const { status, data } = response;
