@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Button from '../components/button';
 // import { useNavigate } from 'react-router-dom';
 // import NavBar from '../components/navBar';
 // import axios from 'axios';
@@ -187,14 +188,7 @@ function CustomerCheckout() {
             onChange={ ({ target }) => setDeliveryNumber(target.value) }
           />
         </label>
-
-        <button
-          data-testid="customer_checkout__button-submit-order"
-          type="submit"
-          onClick={ (e) => handleSubmit(e) }
-        >
-          Finalizar Pedido
-        </button>
+        <Button />
       </section>
 
     </div>
