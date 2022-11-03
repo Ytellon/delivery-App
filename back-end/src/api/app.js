@@ -1,11 +1,19 @@
 const express = require('express');
-
+const error = require('../error/AppError');
 const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
-app.use(express.json());
+app.use((_req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT,PATCH');
+  res.header('Access-Control-Allow-Headers', '*');
 
-app.use('/login', userRoutes);
+  next();
+});
+
+app.use(express.json());
+app.use(userRoutes);
+app.use(error);
 
 module.exports = app;
