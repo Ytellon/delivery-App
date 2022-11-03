@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 // import NavBar from '../components/navBar';
-// import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 // import axios from 'axios';
 // import {getLocalStorage, setLocalStorage}
 
