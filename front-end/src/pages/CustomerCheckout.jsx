@@ -188,7 +188,13 @@ function CustomerCheckout() {
             onChange={ ({ target }) => setDeliveryNumber(target.value) }
           />
         </label>
-        <Button />
+
+        <Button
+          name="Finalizar Pedido"
+          type="submit"
+          data-testid="customer_checkout__button-submit-order"
+          onClick={ (e) => handleSubmit(e) }
+        />
       </section>
 
     </div>
