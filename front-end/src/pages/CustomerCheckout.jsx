@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Button from '../components/button';
 import Input from '../components/input';
+import NavBar from '../components/navBar';
 // import { useNavigate } from 'react-router-dom';
-// import NavBar from '../components/navBar';
 // import axios from 'axios';
 // import {getLocalStorage, setLocalStorage}
 
@@ -132,7 +132,7 @@ function CustomerCheckout() {
 
   return (
     <div>
-      {/* <NavBar /> */}
+      <NavBar />
       <h2>Finalizar Pedido</h2>
       <table>
         <thead>
