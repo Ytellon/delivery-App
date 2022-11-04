@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import CardOrder from '../components/cardOrder';
-import Header from '../components/navBar';
+import Header from '../components/header';
 import { getRequest } from '../utils/requests';
 
 export default function Order() {
