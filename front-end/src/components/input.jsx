@@ -22,7 +22,10 @@ Input.propTypes = {
   type: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
   dataTestId: propTypes.string.isRequired,
-  value: propTypes.string.isRequired,
+  value: propTypes.oneOfType([
+    propTypes.string,
+    propTypes.number,
+  ]).isRequired,
   onChange: propTypes.func.isRequired,
   placeholder: propTypes.string.isRequired,
 };

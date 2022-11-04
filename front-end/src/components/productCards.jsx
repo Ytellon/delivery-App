@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Button from './button';
 import Input from './input';
 
-function ProductCards({ ProductName, ProductPrice, ProductImg, ProductId }) {
+function ProductCards({ product }) {
+  const { id, name, price, urlImage } = product;
   const [quantitys, setQuantitys] = useState(0);
 
   const addProduct = () => {
@@ -16,49 +17,55 @@ function ProductCards({ ProductName, ProductPrice, ProductImg, ProductId }) {
 
   return (
     <div>
-      <span data-testid={ `customer_products__element-card-title-${ProductId}` }>
-        {ProductName}
+      <span data-testid={ `customer_products__element-card-title-${id}` }>
+        {name}
       </span>
 
-      <span data-testid={ `customer_products__element-card-price-${ProductId}` }>
-        {`R$ ${ProductPrice.replace('.', ',')}`}
+      <span data-testid={ `customer_products__element-card-price-${id}` }>
+        {`R$ ${price.replace('.', ',')}`}
       </span>
 
       <img
-        src={ ProductImg }
-        alt={ ProductName }
-        data-testid={ `customer_products__img-card-bg-image-${ProductId}` }
+        style={ { width: '70px', height: '70px' } }
+        src={ urlImage }
+        alt={ name }
+        data-testid={ `customer_products__img-card-bg-image-${id}` }
       />
 
       <Button
         type="button"
-        dataTestId={ `customer_products__button-card-add-item-${ProductId}` }
-        onChange={ addProduct }
-        name="+"
-      />
-
-      <Button
-        type="button"
-        dataTestId={ `customer_products__button-card-rm-item-${ProductId}` }
-        onChange={ removeProduct }
+        dataTestId={ `customer_products__button-card-rm-item-${id}` }
+        onClick={ removeProduct }
+        disabled={ false }
         name="-"
       />
 
       <Input
         type="number"
-        value={ quantitys }
-        dataTestId={ `customer_products__input-card-quantity-${ProductId}` }
+        dataTestId={ `customer_products__input-card-quantity-${id}` }
         onChange={ (e) => setQuantitys(e.target.value) }
+        placeholder="Quantidade"
+        id="quantity"
+        name=""
+        value={ quantitys }
+      />
+
+      <Button
+        type="button"
+        dataTestId={ `customer_products__button-card-add-item-${id}` }
+        onClick={ addProduct }
+        name="+"
+        disabled={ false }
       />
     </div>
   );
 }
 
 ProductCards.propTypes = {
-  ProductName: PropTypes.string,
-  ProductPrice: PropTypes.number,
-  ProductImg: PropTypes.string,
-  ProductId: PropTypes.number,
+  name: PropTypes.string,
+  price: PropTypes.string,
+  urlImage: PropTypes.string,
+  id: PropTypes.number,
 }.isRequired;
 
 export default ProductCards;

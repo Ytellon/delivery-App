@@ -16,6 +16,8 @@ app.use((_req, res, next) => {
 app.use(express.json());
 app.use(userRoutes);
 app.use(productRoutes);
+app.use(express.static('public'));
 app.use(error);
+
 
 module.exports = app;

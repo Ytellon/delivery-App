@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'http://localhost:3001';
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -14,6 +14,12 @@ export const postRequest = async (endpoint, body) => {
 
 export const getRequest = async (endpoint) => {
   const response = await api.get(endpoint);
+  const { data } = response;
+  return data;
+};
+
+export const getProducts = async (endpoint, header) => {
+  const response = await api.get(endpoint, { headers: { Authorization: header } });
   const { data } = response;
   return data;
 };
