@@ -22,7 +22,6 @@ export default function CustomerProducts() {
       }
     };
 
-    console.log(products);
     fetchProducts();
   }, [navigate]);
 
