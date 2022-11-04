@@ -6,9 +6,9 @@ const userController = {
     try {
       const { email, password } = req.body;
 
-      const token = await userService.login({ email, password });
+      const user = await userService.login({ email, password });
 
-      res.status(200).json({ token });
+      res.status(200).json(user);
     } catch (error) {
       res.status(error.code || 500).json({ message: error.message });
     }
@@ -18,9 +18,9 @@ const userController = {
     try {
       const { name, email, password } = req.body;
 
-      await userService.createUser({ name, email, password });
+      const result = await userService.createUser({ name, email, password });
 
-      res.status(201).json({ message: 'User created successfully' });
+      res.status(201).json(result);
     } catch (error) {
       res.status(error.code || 500).json({ message: error.message });
     }
