@@ -19,5 +19,4 @@ app.use(productRoutes);
 app.use(express.static('public'));
 app.use(error);
 
-
 module.exports = app;
