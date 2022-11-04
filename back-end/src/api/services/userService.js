@@ -24,7 +24,11 @@ const userService = {
     
     const token = jwt.sign({ id, role }, jwtSecret, { expiresIn: '7d' });
 
-    return token;
+    delete user.dataValues.password;
+
+    user.dataValues.token = token;
+
+    return user.dataValues;
   },
 
   createUser: async ({ name, email, password }) => {
@@ -34,7 +38,9 @@ const userService = {
       throw new AppError(409, 'Conflict');
     }
 
-    const newUser = await User.create({ name, email, password: md5(password), role: 'customer' });
+    await User.create({ name, email, password: md5(password), role: 'customer' });
+
+    const newUser = userService.login({ email, password });
 
     return newUser;
   },

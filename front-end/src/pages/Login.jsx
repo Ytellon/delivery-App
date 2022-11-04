@@ -35,7 +35,10 @@ export default function Login() {
     };
 
     try {
-      await postRequest('/login', login);
+      const resLogin = await postRequest('/login', login);
+
+      localStorage.setItem('user', JSON.stringify(resLogin));
+
       navigate('/customer/products');
     } catch ({ response }) {
       const { status, data } = response;
