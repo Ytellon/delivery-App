@@ -1,84 +1,84 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../components/button';
 import Input from '../components/input';
 import Header from '../components/header';
-// import { useNavigate } from 'react-router-dom';
+import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 // import axios from 'axios';
-// import {getLocalStorage, setLocalStorage}
 
 function CustomerCheckout() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [sellerId, setSellerId] = useState('');
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
+  const [orders, setOrders] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
   // const [token, setToken] = useState('');
-  // const [orders, setOrders] = useState([]);
   // const [sellers, setSellers] = useState([]);
-  // const [totalPrice, setTotalPrice] = useState(0);
 
-  // const totalPriceCheckout = () => {
-  //   const cart = JSON.parse(localStorage.getItem('carrinho'));
+  const totalPriceCheckout = () => {
+    const cart = JSON.parse(localStorage.getItem('carrinho'));
 
-  //   let total = 0;
-  //   Object.values(cart).forEach(({ quantity, price }) => {
-  //     total += quantity * price;
-  //   });
+    let total = 0;
+    Object.values(cart).forEach(({ quantity, price }) => {
+      total += quantity * price;
+    });
 
-  //   setTotalPrice(total);
-  //   setLocalStorage('totalPrice', total);
-  // };
+    setTotalPrice(total);
+    setLocalStorage('totalPrice', total);
+  };
 
-  // const removeItem = (index, name) => {
-  //   const itens = orders.filter((order, i) => i !== index);
-  //   setOrders(itens);
+  const removeItem = (index, name) => {
+    const itens = orders.filter((order, i) => i !== index);
+    setOrders(itens);
 
-  //   const cart = getLocalStorage('carrinho');
-  //   delete cart[name];
-  //   setLocalStorage('carrinho', cart);
+    const cart = getLocalStorage('carrinho');
+    delete cart[name];
+    setLocalStorage('carrinho', cart);
 
-  //   handleTotalPriceChange();
-  // };
+    totalPriceCheckout();
+  };
 
-  // const renderOrders = () => (
-  //   orders.map((order, i) => (
-  //     <tr key={ i }>
-  //       <td
-  //         data-testid={ `customer_checkout__element-order-table-item-number-${i}` }
-  //       >
-  //         {i + 1}
-  //       </td>
-  //       <td
-  //         data-testid={ `customer_checkout__element-order-table-name-${i}` }
-  //       >
-  //         {order[0]}
-  //       </td>
-  //       <td
-  //         data-testid={ `customer_checkout__element-order-table-quantity-${i}` }
-  //       >
-  //         {order[1].quantity}
-  //       </td>
-  //       <td
-  //         data-testid={ `customer_checkout__element-order-table-unit-price-${i}` }
-  //       >
-  //         {Number(order[1].price).toFixed(2).replace('.', ',')}
-  //       </td>
-  //       <td
-  //         data-testid={ `customer_checkout__element-order-table-sub-total-${i}` }
-  //       >
-  //         {Number(order[1].price * order[1].quantity).toFixed(2).replace('.', ',')}
-  //       </td>
-  //       <td>
-  //         <button
-  //           data-testid={ `customer_checkout__element-order-table-remove-${i}` }
-  //           type="button"
-  //           onClick={ () => removeItem(i, order[0]) }
-  //         >
-  //           X
-  //         </button>
-  //       </td>
-  //     </tr>
-  //   ))
-  // );
+  const renderOrders = () => (
+    orders.map((order, i) => (
+      <tr key={ i }>
+        <td
+          data-testid={ `customer_checkout__element-order-table-item-number-${i}` }
+        >
+          {i + 1}
+        </td>
+        <td
+          data-testid={ `customer_checkout__element-order-table-name-${i}` }
+        >
+          {order[0]}
+        </td>
+        <td
+          data-testid={ `customer_checkout__element-order-table-quantity-${i}` }
+        >
+          {order[1].quantity}
+        </td>
+        <td
+          data-testid={ `customer_checkout__element-order-table-unit-price-${i}` }
+        >
+          {Number(order[1].price).toFixed(2).replace('.', ',')}
+        </td>
+        <td
+          data-testid={ `customer_checkout__element-order-table-sub-total-${i}` }
+        >
+          {Number(order[1].price * order[1].quantity).toFixed(2).replace('.', ',')}
+        </td>
+        <td>
+          <button
+            data-testid={ `customer_checkout__element-order-table-remove-${i}` }
+            type="button"
+            onClick={ () => removeItem(i, order[0]) }
+          >
+            X
+          </button>
+        </td>
+      </tr>
+    ))
+  );
 
   // const renderSellersOptions = () => (
   //   sellers.map(({ name, id }) => (
@@ -102,7 +102,7 @@ function CustomerCheckout() {
   // const createSale = async () => {
   //   const response = await axios({
   //     method: 'post',
-  //     // url: 'http://localhost:3001/orders',
+  //     url: 'http://localhost:3001/orders',
   //     headers: { authorization: token },
   //     data: {
   //       userId,
@@ -118,12 +118,12 @@ function CustomerCheckout() {
   //   return response.data;
   // };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const data = await createSale();
-  //   setLocalStorage('orderInfo', data);
-  //   navigate(`/customer/orders/${data.id}`);
-  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = await createSale();
+    setLocalStorage('orderInfo', data);
+    navigate(`/customer/orders/${data.id}`);
+  };
 
   // useEffect(() => {
   //   initialState();
@@ -146,14 +146,14 @@ function CustomerCheckout() {
           </tr>
         </thead>
         <tbody>
-          {/* {renderOrders()} */}
+          {renderOrders()}
         </tbody>
       </table>
-      {/* <p
+      <p
         data-testid="customer_checkout__element-order-total-price"
       >
         { Number(totalPrice).toFixed(2).replace('.', ',') }
-      </p> */}
+      </p>
       <section>
         <label htmlFor="seller">
           P. Vendedora Responsável:
@@ -175,7 +175,8 @@ function CustomerCheckout() {
           dataTestId="address"
           value={ deliveryAddress }
           onChange={ ({ target }) => setDeliveryAddress(target.value) }
-          placeholder="número"
+          placeholder="Endereço"
+          disabled={ false }
         />
 
         <Input
@@ -186,12 +187,15 @@ function CustomerCheckout() {
           value={ deliveryNumber }
           onChange={ ({ target }) => setDeliveryNumber(target.value) }
           placeholder="número"
+          disabled={ false }
         />
 
         <Button
-          name="Finalizar Pedido"
+          name="FINALIZAR PEDIDO"
           type="submit"
           data-testid="customer_checkout__button-submit-order"
+          dataTestId="finishOrder"
+          disabled={ false }
           onClick={ (e) => handleSubmit(e) }
         />
       </section>
