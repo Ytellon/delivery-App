@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../components/button';
 import Input from '../components/input';
-import NavBar from '../components/navBar';
+import Header from '../components/header';
 // import { useNavigate } from 'react-router-dom';
 // import axios from 'axios';
 // import {getLocalStorage, setLocalStorage}
@@ -132,7 +132,7 @@ function CustomerCheckout() {
 
   return (
     <div>
-      <NavBar />
+      <Header />
       <h2>Finalizar Pedido</h2>
       <table>
         <thead>
