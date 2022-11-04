@@ -3,16 +3,15 @@ import PropTypes from 'prop-types';
 import Button from './button';
 import Input from './input';
 
-function ProductCards({ product }) {
+function ProductCards({ product, handleOrders }) {
   const { id, name, price, urlImage } = product;
   const [quantitys, setQuantitys] = useState(0);
 
-  const addProduct = () => {
-    setQuantitys(+quantitys + 1);
-  };
-
-  const removeProduct = () => {
-    if (quantitys >= 0) setQuantitys(+quantitys - 1);
+  const selectQuantity = (quantity) => {
+    if (quantity >= 0) {
+      setQuantitys(quantity);
+      handleOrders(id, quantity);
+    }
   };
 
   return (
@@ -35,7 +34,7 @@ function ProductCards({ product }) {
       <Button
         type="button"
         dataTestId={ `customer_products__button-card-rm-item-${id}` }
-        onClick={ removeProduct }
+        onClick={ () => selectQuantity(quantitys - 1) }
         disabled={ false }
         name="-"
       />
@@ -43,7 +42,7 @@ function ProductCards({ product }) {
       <Input
         type="number"
         dataTestId={ `customer_products__input-card-quantity-${id}` }
-        onChange={ (e) => setQuantitys(e.target.value) }
+        onChange={ (e) => selectQuantity(Number(e.target.value)) }
         placeholder="Quantidade"
         id="quantity"
         name=""
@@ -53,7 +52,7 @@ function ProductCards({ product }) {
       <Button
         type="button"
         dataTestId={ `customer_products__button-card-add-item-${id}` }
-        onClick={ addProduct }
+        onClick={ () => selectQuantity(quantitys + 1) }
         name="+"
         disabled={ false }
       />
