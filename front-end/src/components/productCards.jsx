@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Button from './button';
+import Input from './input';
 
 function ProductCards({ ProductName, ProductPrice, ProductImg, ProductId }) {
   const [quantitys, setQuantitys] = useState(0);
@@ -28,26 +30,24 @@ function ProductCards({ ProductName, ProductPrice, ProductImg, ProductId }) {
         data-testid={ `customer_products__img-card-bg-image-${ProductId}` }
       />
 
-      <button
+      <Button
         type="button"
-        data-testid={ `customer_products__button-card-add-item-${ProductId}` }
+        dataTestId={ `customer_products__button-card-add-item-${ProductId}` }
         onChange={ addProduct }
-      >
-        +
-      </button>
+        name="+"
+      />
 
-      <button
+      <Button
         type="button"
-        data-testid={ `customer_products__button-card-rm-item-${ProductId}` }
+        dataTestId={ `customer_products__button-card-rm-item-${ProductId}` }
         onChange={ removeProduct }
-      >
-        -
-      </button>
+        name="-"
+      />
 
-      <input
+      <Input
         type="number"
         value={ quantitys }
-        data-testid={ `customer_products__input-card-quantity-${ProductId}` }
+        dataTestId={ `customer_products__input-card-quantity-${ProductId}` }
         onChange={ (e) => setQuantitys(e.target.value) }
       />
     </div>
