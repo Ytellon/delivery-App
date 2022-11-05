@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import Button from './button';
+import UserRow from './userRow';
 
-export default function UserList({ users }) {
+export default function UserList({ users, deleteUser }) {
   return (
     <div>
       <div>
@@ -18,43 +18,15 @@ export default function UserList({ users }) {
               </tr>
               {
                 users.map((user, index) => (
-                  <tr
+                  <UserRow
                     key={ index }
-                  >
-                    <td
-                      data-testid={
-                        `admin_manage__element-user-table-item-number-${index + 1}`
-                      }
-                    >
-                      {index + 1}
-                    </td>
-                    <td
-                      data-testid={ `admin_manage__element-user-table-name-${index + 1}` }
-                    >
-                      {user.name}
-                    </td>
-                    <td
-                      data-testid={
-                        `admin_manage__element-user-table-email-${index + 1}`
-                      }
-                    >
-                      {user.email}
-                    </td>
-                    <td
-                      data-testid={ `admin_manage__element-user-table-role-${index + 1}` }
-                    >
-                      {user.role}
-                    </td>
-                    <td>
-                      <Button
-                        name="Excluir"
-                        type="button"
-                        data-testid={
-                          `admin_manage__element-user-table-remove-${index + 1}`
-                        }
-                      />
-                    </td>
-                  </tr>
+                    number={ index + 1 }
+                    id={ user.id }
+                    name={ user.name }
+                    email={ user.email }
+                    role={ user.role }
+                    deleteUser={ deleteUser }
+                  />
                 ))
               }
             </table>
@@ -72,6 +44,7 @@ UserList.propTypes = {
     email: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
   })),
+  deleteUser: PropTypes.func.isRequired,
 };
 
 UserList.defaultProps = {
