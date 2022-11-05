@@ -6,8 +6,8 @@ const api = axios.create({
   baseURL: BASE_URL,
 });
 
-export const postRequest = async (endpoint, body) => {
-  const response = await api.post(endpoint, body);
+export const postRequest = async (endpoint, body, config) => {
+  const response = await api.post(endpoint, body, config);
   const { data } = response;
   return data;
 };
