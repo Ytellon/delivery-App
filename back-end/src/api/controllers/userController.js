@@ -18,7 +18,19 @@ const userController = {
     try {
       const { name, email, password } = req.body;
 
-      const result = await userService.createUser({ name, email, password });
+      const result = await userService.createUser({ name, email, password, role: 'customer' });
+
+      res.status(201).json(result);
+    } catch (error) {
+      res.status(error.code || 500).json({ message: error.message });
+    }
+  },
+
+  adminCreateUser: async (req, res) => {
+    try {
+      const { name, email, password, role } = req.body;
+
+      const result = await userService.createUser({ name, email, password, role });
 
       res.status(201).json(result);
     } catch (error) {

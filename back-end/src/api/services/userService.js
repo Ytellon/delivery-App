@@ -31,14 +31,14 @@ const userService = {
     return user.dataValues;
   },
 
-  createUser: async ({ name, email, password }) => {
+  createUser: async ({ name, email, password, role }) => {
     const user = await User.findOne({ where: { email } });
 
     if (user) {
       throw new AppError(409, 'Conflict');
     }
 
-    await User.create({ name, email, password: md5(password), role: 'customer' });
+    await User.create({ name, email, password: md5(password), role });
 
     const newUser = userService.login({ email, password });
 

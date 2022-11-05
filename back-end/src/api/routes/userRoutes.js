@@ -11,6 +11,8 @@ userRoutes.post('/login', validateLogin, userController.login);
 
 userRoutes.post('/register', userController.createUser);
 
+userRoutes.post('/admin/register', validateToken, adminAuth, userController.adminCreateUser);
+
 userRoutes.get('/users', validateToken, adminAuth, userController.getAllUsers);
 
 module.exports = userRoutes;
