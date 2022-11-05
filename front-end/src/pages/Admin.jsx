@@ -1,11 +1,18 @@
 import { useEffect, useState } from 'react';
 import Button from '../components/button';
 import Input from '../components/input';
+import UserList from '../components/userList';
 import { getLocalStorage } from '../utils/localStorage';
-import { getRequest } from '../utils/requests';
+import { getRequest, postRequest } from '../utils/requests';
 
 export default function Admin() {
   const [users, setUsers] = useState([]);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('customer');
+  const [buttonDisable, setButtonDisable] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const getUsers = async () => {
     try {
@@ -19,7 +26,7 @@ export default function Admin() {
 
       const response = await getRequest('/users', config);
 
-      setUsers(response);
+      setUsers(response.filter((currentUser) => currentUser.role !== 'administrator'));
     } catch ({ response }) {
       const { status, data } = response;
       setErrorMessage(`Erro ${status} - ${data.message}`);
@@ -30,8 +37,53 @@ export default function Admin() {
     getUsers();
   }, []);
 
+  useEffect(() => {
+    const enableButton = () => {
+      const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+      const minNameLength = 12;
+      const minPasswordLength = 6;
+      const validation = !(
+        emailRegex.test(email)
+        && name.length > minNameLength
+        && password.length >= minPasswordLength
+      );
+
+      setButtonDisable(validation);
+    };
+
+    enableButton();
+  }, [email, password, name]);
+
+  const submit = async () => {
+    const newUser = {
+      name,
+      email,
+      password,
+      role,
+    };
+
+    try {
+      const user = getLocalStorage('user');
+
+      const config = {
+        headers: {
+          authorization: user.token,
+        },
+      };
+
+      await postRequest('/admin/register', newUser, config);
+      getUsers();
+    } catch ({ response }) {
+      console.log(response);
+      const { status, data } = response;
+      setErrorMessage(`Erro ${status} - ${data.message}`);
+    }
+  };
+
   return (
     <div>
+      { errorMessage
+        && <p data-testId="admin_manage__element-invalid-register">{ errorMessage }</p> }
       <form>
         <h1>Cadastrar novo usuário</h1>
         <Input
@@ -41,77 +93,37 @@ export default function Admin() {
         />
         <Input
           name="Email"
+          type="email"
           dataTestId="admin_manage__input-email"
-          onChange={ (e) => setName(e.target.value) }
+          onChange={ (e) => setEmail(e.target.value) }
         />
         <Input
           name="Senha"
+          type="password"
           dataTestId="admin_manage__input-password"
-          onChange={ (e) => setName(e.target.value) }
+          onChange={ (e) => setPassword(e.target.value) }
         />
         <label htmlFor="type">
-          <select name="type" id="type" data-testid="admin_manage__select-role">
-            <option value="volvo">Vendedor</option>
-            <option value="saab">Cliente</option>
-            <option value="opel">Administrador</option>
+          <select
+            name="type"
+            id="type"
+            onChange={ (e) => setRole(e.target.value) }
+            data-testid="admin_manage__select-role"
+          >
+            <option value="customer">Cliente</option>
+            <option value="seller">Vendedor</option>
+            <option value="administrador">Administrador</option>
           </select>
         </label>
         <Button
           name="Registrar"
-          type="submit"
+          onClick={ submit }
+          disabled={ buttonDisable }
           dataTestId="admin_manage__button-register"
         />
       </form>
       <div>
-        <h2>Lista de usuários</h2>
-        {
-          users.length > 0 && (
-            <table>
-              <tr>
-                <th>Item</th>
-                <th>Nome</th>
-                <th>E-mail</th>
-                <th>Tipo</th>
-                <th>Excluir</th>
-              </tr>
-              {
-                users.map((user, index) => (
-                  <tr key={ index }>
-                    <td
-                      dataTestId={
-                        `admin_manage__element-user-table-item-number-${index}`
-                      }
-                    >
-                      {index + 1}
-                    </td>
-                    <td
-                      dataTestId={ `admin_manage__element-user-table-name-${index}` }
-                    >
-                      {user.name}
-                    </td>
-                    <td
-                      dataTestId={ `admin_manage__element-user-table-email-${index}` }
-                    >
-                      {user.email}
-                    </td>
-                    <td
-                      dataTestId={ `admin_manage__element-user-table-role-${index}` }
-                    >
-                      {user.role}
-                    </td>
-                    <td>
-                      <Button
-                        name="Excluir"
-                        type="button"
-                        dataTestId={ `admin_manage__element-user-table-remove-${index}` }
-                      />
-                    </td>
-                  </tr>
-                ))
-              }
-            </table>
-          )
-        }
+        <UserList users={ users } />
       </div>
     </div>
   );
