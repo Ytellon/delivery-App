@@ -3,7 +3,7 @@ import Button from '../components/button';
 import Input from '../components/input';
 import UserList from '../components/userList';
 import { getLocalStorage } from '../utils/localStorage';
-import { getRequest, postRequest } from '../utils/requests';
+import { deleteRequest, getRequest, postRequest } from '../utils/requests';
 
 export default function Admin() {
   const [users, setUsers] = useState([]);
@@ -36,6 +36,25 @@ export default function Admin() {
   useEffect(() => {
     getUsers();
   }, []);
+
+  const deleteUser = async (id) => {
+    try {
+      const user = getLocalStorage('user');
+
+      const config = {
+        headers: {
+          authorization: user.token,
+        },
+      };
+
+      await deleteRequest(`/admin/user/${id}`, config);
+
+      getUsers();
+    } catch ({ response }) {
+      const { status, data } = response;
+      setErrorMessage(`Erro ${status} - ${data.message}`);
+    }
+  };
 
   useEffect(() => {
     const enableButton = () => {
@@ -74,7 +93,6 @@ export default function Admin() {
       await postRequest('/admin/register', newUser, config);
       getUsers();
     } catch ({ response }) {
-      console.log(response);
       const { status, data } = response;
       setErrorMessage(`Erro ${status} - ${data.message}`);
     }
@@ -123,7 +141,7 @@ export default function Admin() {
         />
       </form>
       <div>
-        <UserList users={ users } />
+        <UserList users={ users } deleteUser={ deleteUser } />
       </div>
     </div>
   );
