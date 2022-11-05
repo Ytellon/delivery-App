@@ -24,4 +24,10 @@ export const deleteRequest = async (endpoint, config) => {
   return data;
 };
 
+export const getProducts = async (endpoint, header) => {
+  const response = await api.get(endpoint, { headers: { Authorization: header } });
+  const { data } = response;
+  return data;
+};
+
 export default api;

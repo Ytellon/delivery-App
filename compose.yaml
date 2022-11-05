@@ -6,7 +6,7 @@ services:
     container_name: delivery_app_frontend
     build: ./front-end
     ports:
-      - 3003:3003
+      - 3000:3000
     working_dir: /app/front-end
     volumes:
       - ./front-end:/app/front-end
