@@ -39,7 +39,11 @@ export default function Login() {
 
       localStorage.setItem('user', JSON.stringify(resLogin));
 
-      navigate('/customer/products');
+      if (resLogin.role === 'administrator') {
+        navigate('/admin/manage');
+      } else {
+        navigate('/customer/products');
+      }
     } catch ({ response }) {
       const { status, data } = response;
       setErrorMessage(`Erro ${status} - ${data.message}`);
