@@ -45,6 +45,10 @@ const userService = {
     return newUser;
   },
 
+  deleteUser: async ({ id }) => {
+    await User.destroy({ where: { id } });
+  },
+
   getAllUsers: async () => {
     const users = await User.findAll({ attributes: ['id', 'name', 'email', 'role'] });
 

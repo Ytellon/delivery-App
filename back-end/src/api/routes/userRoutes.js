@@ -13,6 +13,8 @@ userRoutes.post('/register', userController.createUser);
 
 userRoutes.post('/admin/register', validateToken, adminAuth, userController.adminCreateUser);
 
+userRoutes.delete('/admin/user/:id', validateToken, adminAuth, userController.adminDeleteUser);
+
 userRoutes.get('/users', validateToken, adminAuth, userController.getAllUsers);
 
 module.exports = userRoutes;

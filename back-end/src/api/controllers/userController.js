@@ -38,6 +38,18 @@ const userController = {
     }
   },
 
+  adminDeleteUser: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      await userService.deleteUser({ id });
+
+      res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+      res.status(error.code || 500).json({ message: error.message });
+    }
+  },
+
   getAllUsers: async (_req, res) => {
     try {
       const result = await userService.getAllUsers();
