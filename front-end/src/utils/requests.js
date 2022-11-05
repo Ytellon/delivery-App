@@ -18,4 +18,10 @@ export const getRequest = async (endpoint, config) => {
   return data;
 };
 
+export const deleteRequest = async (endpoint, config) => {
+  const response = await api.delete(endpoint, config);
+  const { data } = response;
+  return data;
+};
+
 export default api;
