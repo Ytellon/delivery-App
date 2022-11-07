@@ -15,7 +15,7 @@ export default function Login() {
     const saveStorage = JSON.parse(localStorage.getItem('user'));
     if (saveStorage?.role === 'customer') return navigate('/customer/products');
     if (saveStorage?.role === 'seller') return navigate('/seller/orders');
-    if (saveStorage?.role === 'admin') return navigate('/admin/manage');
+    if (saveStorage?.role === 'administrator') return navigate('/admin/manage');
   }, [navigate]);
 
   useEffect(() => {
