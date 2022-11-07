@@ -3,24 +3,28 @@ import propTypes from 'prop-types';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
-export default function CardOrder({ order }) {
+export default function CardOrder({ order, roll }) {
   // https://momentjs.com/
+
+  const routeId = roll === 'customer' ? '/customer/orders/' : '/seller/orders/';
+
+  const dataId = roll === 'customer' ? 'customer_order' : 'seller_order';
 
   return (
     <div>
-      <Link to={ `/customer/orders/${order.id}` }>
+      <Link to={ `${routeId}${order.id}` }>
         <p
-          data-testid={ `customer_orders__element-order-id-${order.id}` }
+          data-testid={ `${dataId}__element-order-id-${order.id}` }
         >
           {`Pedido ${order.id}`}
         </p>
-        <p data-testid={ `customer_orders__element-delivery-status-${order.id}` }>
+        <p data-testid={ `${dataId}__element-delivery-status-${order.id}` }>
           {order.status}
         </p>
-        <div data-testid={ `customer_orders__element-order-date-${order.id}` }>
+        <div data-testid={ `${dataId}__element-order-date-${order.id}` }>
           {moment(order.sale_date).format('DD/MM/YYYY')}
         </div>
-        <p data-testid={ `customer_orders__element-card-price-${order.id}` }>
+        <p data-testid={ `${dataId}__element-card-price-${order.id}` }>
           {`R$ ${order.total_price.replace('.', ',')}`}
         </p>
       </Link>
@@ -37,4 +41,6 @@ CardOrder.propTypes = {
     delivery_address: propTypes.string.isRequired,
     delivery_number: propTypes.string.isRequired,
   }).isRequired,
+
+  roll: propTypes.string.isRequired,
 };
