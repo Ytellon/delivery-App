@@ -38,6 +38,7 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
         field: 'sale_date',
+        defaultValue: Sequelize.fn('NOW'),
       },
       status: {
         type: Sequelize.STRING(50),
