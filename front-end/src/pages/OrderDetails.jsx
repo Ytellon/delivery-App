@@ -16,47 +16,51 @@ export default function OrderDetails() {
     getOrder();
   }, []);
 
+  const datatestId = 'customer_order_details';
+  const itemId = '__element-order-details-label-order-id';
+  const sellerId = '__element-order-details-label-seller-name';
+  const dateId = '__element-order-details-label-order-date';
+  const statusId = '__element-order-details-label-delivery-status';
+  const checkId = '__button-delivery-check';
+  const totalPriceId = '__element-order-total-price';
+
   return (
     <div>
       {
         order && (
           <div>
             <h3
-              data-testid="customer_order_details__element-order-details-label-order-id"
+              data-testid={ datatestId + itemId }
             >
               {`PEDIDO ${order.id}`}
             </h3>
             <h3
-              data-testid="customer_order_details
-                __element-order-details-label-seller-name"
+              data-testid={ datatestId + sellerId }
             >
               {`P. Vend: ${order.seller.name}`}
             </h3>
             <h3
-              data-testid="customer_order_details__element-order-details-label-order-date"
+              data-testid={ datatestId + dateId }
             >
               {order.saleDate}
             </h3>
             <h3
-              data-testid={
-                `customer_order_details__element-order-details-label-delivery-status
-                  ${order.id}`
-              }
+              data-testid={ datatestId + statusId + order.id }
             >
               {order.status}
             </h3>
             <Button
-              data-testid="customer_order_details__button-delivery-check"
+              dataTestId={ datatestId + checkId }
               name="MARCAR COMO ENTREGUE"
             />
             <h2
-              data-testid="customer_order_details__element-order-total-price"
+              data-testid={ datatestId + totalPriceId }
             >
               {`TOTAL R$${order.totalPrice}`}
             </h2>
 
             <ProductList
-              datatestId="customer_order_details"
+              datatestId={ datatestId }
               products={ order.products }
             />
           </div>
