@@ -1,26 +1,26 @@
 const Sequelize = require('sequelize');
 const config = require('../../database/config/config');
 // const AppError = require('../error/AppError');
-const { SaleModel, SaleProduct } = require('../../database/models');
+const { Sale, SaleProduct } = require('../../database/models');
 
-const sequelize = new Sequelize(config.developement);
+const sequelize = new Sequelize(config.development);
 
 const createSale = async (sale) => {
   const transaction = await sequelize.transaction();
-  const {
-    userId,
-    sellerId,
-    totalPrice,
-    deliveryAddress,
-    deliveryNumber,
-    saleProducts,
-  } = sale;
 
-  const newSale = await SaleModel.create({
-    userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, status: 'Pendente',
-}, { transaction });
+  const newSale = await Sale.create(
+    {
+      userId: sale.userId,
+      sellerId: sale.sellerId,
+      totalPrice: sale.totalPrice,
+      deliveryAddress: sale.deliveryAddress,
+      deliveryNumber: sale.deliveryNumber,
+      status: 'Pendente',
+      saleDate: new Date().toISOString(),
+    }, { transaction },
+  );
 
-  const createSaleProducts = saleProducts.map((saleProduct) => ({
+  const createSaleProducts = sale.saleProducts.map((saleProduct) => ({
     saleId: newSale.id, productId: saleProduct.productId, quantity: saleProduct.quantity,
   }));
 
@@ -30,8 +30,8 @@ const createSale = async (sale) => {
 };
 
 const getAllSales = async () => {
-  const sales = await SaleModel.findAll({
-    include: { model: SaleProduct, as: 'products' },
+  const sales = await Sale.findAll({
+    include: { model: SaleProduct, as: 'sales' },
   });
   return sales;
 };
