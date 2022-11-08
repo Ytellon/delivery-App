@@ -21,7 +21,7 @@ const userService = {
 
     const jwtSecret = fs
       .readFileSync(path.join(__dirname, '/../../../jwt.evaluation.key'), { encoding: 'utf-8' });
-    
+
     const token = jwt.sign({ id, role }, jwtSecret, { expiresIn: '7d' });
 
     delete user.dataValues.password;
@@ -53,6 +53,12 @@ const userService = {
     const users = await User.findAll({ attributes: ['id', 'name', 'email', 'role'] });
 
     return users;
+  },
+
+  getAllSellers: async () => {
+    const sellers = await User.findAll({ where: { role: 'seller' } });
+
+    return sellers;
   },
 };
 

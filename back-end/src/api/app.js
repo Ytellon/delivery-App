@@ -3,6 +3,7 @@ const error = require('../error/AppError');
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 const saleRoutes = require('./routes/saleRoutes');
+const sellerRoutes = require('./routes/sellerRoutes');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(userRoutes);
 app.use(productRoutes);
 app.use(saleRoutes);
+app.use(sellerRoutes);
 app.use(express.static('public'));
 app.use(error);
 
