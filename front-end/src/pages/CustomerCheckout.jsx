@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Button from '../components/button';
 import Input from '../components/input';
 import Header from '../components/header';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
-// import axios from 'axios';
 
 function CustomerCheckout() {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ function CustomerCheckout() {
   const [orders, setOrders] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   // const [token, setToken] = useState('');
-  // const [sellers, setSellers] = useState([]);
+  const [sellers, setSellers] = useState([]);
 
   const totalPriceCheckout = () => {
     const cart = JSON.parse(localStorage.getItem('carrinho'));
@@ -80,24 +80,24 @@ function CustomerCheckout() {
     ))
   );
 
-  // const renderSellersOptions = () => (
-  //   sellers.map(({ name, id }) => (
-  //     <option key={ id } value={ id }>{name}</option>))
-  // );
+  const renderSellersOptions = () => (
+    sellers.map(({ name, id }) => (
+      <option key={ id } value={ id }>{name}</option>))
+  );
 
   // const initialState = () => {
   //   setTotalPrice(getLocalStorage('totalPrice'));
   //   setUserId(getLocalStorage('user').id);
-  //   setToken(getLocalStorage('user').token);
-  //   setOrders(Object.entries(getLocalStorage('carrinho')));
+  //   // setToken(getLocalStorage('user').token);
+  //   // setOrders(Object.entries(getLocalStorage('carrinho')));
   // };
 
-  // const getSellers = async () => {
-  //   const response = await axios.get('http://localhost:3001/seller');
+  const getSellers = async () => {
+    const response = await axios.get('http://localhost:3001/seller');
 
-  //   setSellerId(response.data[0].id);
-  //   setSellers(response.data);
-  // };
+    setSellerId(response.data[0].id);
+    setSellers(response.data);
+  };
 
   // const createSale = async () => {
   //   const response = await axios({
@@ -125,10 +125,10 @@ function CustomerCheckout() {
     navigate(`/customer/orders/${data.id}`);
   };
 
-  // useEffect(() => {
-  //   initialState();
-  //   getSellers();
-  // }, []);
+  useEffect(() => {
+    // initialState();
+    getSellers();
+  }, []);
 
   return (
     <div>
@@ -164,7 +164,7 @@ function CustomerCheckout() {
             value={ sellerId }
             onChange={ ({ target }) => setSellerId(target.value) }
           >
-            {/* { renderSellersOptions() } */}
+            { renderSellersOptions() }
           </select>
         </label>
 

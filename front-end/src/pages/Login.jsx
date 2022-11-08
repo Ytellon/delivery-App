@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postRequest } from '../utils/requests';
 import Button from '../components/button';
@@ -10,6 +10,13 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [buttonDisable, setButtonDisable] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
+
+  const handleLogin = useCallback(async () => {
+    const saveStorage = JSON.parse(localStorage.getItem('user'));
+    if (saveStorage?.role === 'customer') return navigate('/customer/products');
+    if (saveStorage?.role === 'seller') return navigate('/seller/orders');
+    if (saveStorage?.role === 'administrator') return navigate('/admin/manage');
+  }, [navigate]);
 
   useEffect(() => {
     const enableButton = () => {
@@ -23,8 +30,9 @@ export default function Login() {
       setButtonDisable(validation);
     };
 
+    handleLogin();
     enableButton();
-  }, [email, password]);
+  }, [email, password, handleLogin]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -39,11 +47,7 @@ export default function Login() {
 
       localStorage.setItem('user', JSON.stringify(resLogin));
 
-      if (resLogin.role === 'administrator') {
-        navigate('/admin/manage');
-      } else {
-        navigate('/customer/products');
-      }
+      handleLogin();
     } catch ({ response }) {
       const { status, data } = response;
       setErrorMessage(`Erro ${status} - ${data.message}`);
