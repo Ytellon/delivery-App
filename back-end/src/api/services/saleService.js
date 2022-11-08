@@ -36,7 +36,16 @@ const getAllSales = async () => {
   return sales;
 };
 
+const getSaleById = async (id) => {
+  const sale = await Sale.findOne({
+    where: { id },
+    include: { model: SaleProduct, as: 'sales' },
+  });
+  return sale;
+};
+
 module.exports = {
   createSale,
   getAllSales,
+  getSaleById,
 };
