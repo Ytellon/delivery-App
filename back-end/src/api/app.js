@@ -3,7 +3,7 @@ const error = require('../error/AppError');
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 const saleRoutes = require('./routes/saleRoutes');
-const sellerRoutes = require('./routes/sellerRoutes')
+const sellerRoutes = require('./routes/sellerRoutes');
 
 const app = express();
 

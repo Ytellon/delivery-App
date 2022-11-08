@@ -56,10 +56,10 @@ const userService = {
   },
 
   getAllSellers: async () => {
-    const sellers = await User.findAll({ where: { role: 'seller' } })
-    console.log('passei aqui')
+    const sellers = await User.findAll({ where: { role: 'seller' } });
+
     return sellers;
-  }
+  },
 };
 
 module.exports = userService;

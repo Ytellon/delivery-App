@@ -1,6 +1,5 @@
 const userService = require('../services/userService');
 
-
 const sellerController = {
 
   getAllSellers: async (_req, res) => {
@@ -14,4 +13,4 @@ const sellerController = {
   },
 };
 
-module.exports = sellerController
+module.exports = sellerController;
