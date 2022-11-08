@@ -2,6 +2,7 @@ const express = require('express');
 const error = require('../error/AppError');
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
+const saleRoutes = require('./routes/saleRoutes');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use((_req, res, next) => {
 app.use(express.json());
 app.use(userRoutes);
 app.use(productRoutes);
+app.use(saleRoutes);
 app.use(express.static('public'));
 app.use(error);
 
