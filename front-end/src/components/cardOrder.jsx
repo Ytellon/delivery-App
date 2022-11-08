@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import convertNumber from '../utils/convertNumber';
 
 export default function CardOrder({ order, roll }) {
   // https://momentjs.com/
@@ -22,11 +23,18 @@ export default function CardOrder({ order, roll }) {
           {order.status}
         </p>
         <div data-testid={ `${dataId}__element-order-date-${order.id}` }>
-          {moment(order.sale_date).format('DD/MM/YYYY')}
+          {moment(order.saleDate).format('DD/MM/YYYY')}
         </div>
         <p data-testid={ `${dataId}__element-card-price-${order.id}` }>
-          {`R$ ${order.total_price.replace('.', ',')}`}
+          {convertNumber(order.totalPrice)}
         </p>
+        { roll === 'seller' && (
+          <p data-testid={ `seller_orders__element-card-address-${order.id}` }>
+            {
+              `${order.deliveryAddress}, ${order.deliveryNumber}`
+            }
+          </p>
+        )}
       </Link>
     </div>
   );
@@ -36,10 +44,10 @@ CardOrder.propTypes = {
   order: propTypes.shape({
     id: propTypes.number.isRequired,
     status: propTypes.string.isRequired,
-    sale_date: propTypes.string.isRequired,
-    total_price: propTypes.number.isRequired,
-    delivery_address: propTypes.string.isRequired,
-    delivery_number: propTypes.string.isRequired,
+    saleDate: propTypes.string.isRequired,
+    totalPrice: propTypes.string.isRequired,
+    deliveryAddress: propTypes.string.isRequired,
+    deliveryNumber: propTypes.string.isRequired,
   }).isRequired,
 
   roll: propTypes.string.isRequired,

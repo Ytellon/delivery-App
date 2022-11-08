@@ -7,6 +7,7 @@ import CustomerCheckout from '../pages/CustomerCheckout';
 import CustomerOrders from '../pages/Order';
 import OrderDetails from '../pages/OrderDetails';
 import Admin from '../pages/Admin';
+import SellerOrder from '../pages/SellerOrder';
 
 export default function RouteDelivery() {
   return (
@@ -19,6 +20,8 @@ export default function RouteDelivery() {
       <Route path="/customer/orders" element={ <CustomerOrders /> } />
       <Route path="/customer/orders/:id" element={ <OrderDetails /> } />
       <Route path="/admin/manage" element={ <Admin /> } />
+      <Route path="/seller/orders" element={ <SellerOrder /> } />
+      <Route path="/seller/orders/:id" element={ <p> tela de detalhe pedido </p> } />
     </Routes>
   );
 }

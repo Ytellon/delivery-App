@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from './button';
 import Input from './input';
+import convertNumber from '../utils/convertNumber';
 
 function ProductCards({ product, handleOrders }) {
   const { id, name, price, urlImage } = product;
@@ -21,7 +22,7 @@ function ProductCards({ product, handleOrders }) {
       </span>
 
       <span data-testid={ `customer_products__element-card-price-${id}` }>
-        {`R$ ${price.replace('.', ',')}`}
+        {convertNumber(price)}
       </span>
 
       <img

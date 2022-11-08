@@ -4,43 +4,36 @@ import axios from 'axios';
 import Button from '../components/button';
 import Input from '../components/input';
 import Header from '../components/header';
-import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
+import convertNumber from '../utils/convertNumber';
 
 function CustomerCheckout() {
   const navigate = useNavigate();
   const [sellerId, setSellerId] = useState('');
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
-  const [orders, setOrders] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  // const [token, setToken] = useState('');
   const [sellers, setSellers] = useState([]);
+  const [products, setProducts] = useState([]);
 
   const totalPriceCheckout = () => {
-    const cart = JSON.parse(localStorage.getItem('carrinho'));
-
-    let total = 0;
-    Object.values(cart).forEach(({ quantity, price }) => {
-      total += quantity * price;
-    });
+    const cart = JSON.parse(localStorage.getItem('orders'));
+    setProducts(cart);
+    const total = cart.reduce((acc, { price, quantity }) => acc + (price * quantity), 0);
 
     setTotalPrice(total);
-    setLocalStorage('totalPrice', total);
   };
 
-  const removeItem = (index, name) => {
-    const itens = orders.filter((order, i) => i !== index);
-    setOrders(itens);
+  const removeItem = (index) => {
+    const itens = products.filter((order, i) => i !== index);
+    setProducts(itens);
 
-    const cart = getLocalStorage('carrinho');
-    delete cart[name];
-    setLocalStorage('carrinho', cart);
+    localStorage.orders = JSON.stringify(itens);
 
     totalPriceCheckout();
   };
 
   const renderOrders = () => (
-    orders.map((order, i) => (
+    products?.map((order, i) => (
       <tr key={ i }>
         <td
           data-testid={ `customer_checkout__element-order-table-item-number-${i}` }
@@ -50,28 +43,28 @@ function CustomerCheckout() {
         <td
           data-testid={ `customer_checkout__element-order-table-name-${i}` }
         >
-          {order[0]}
+          {order.name}
         </td>
         <td
           data-testid={ `customer_checkout__element-order-table-quantity-${i}` }
         >
-          {order[1].quantity}
+          {order.quantity}
         </td>
         <td
           data-testid={ `customer_checkout__element-order-table-unit-price-${i}` }
         >
-          {Number(order[1].price).toFixed(2).replace('.', ',')}
+          {convertNumber(order.price)}
         </td>
         <td
           data-testid={ `customer_checkout__element-order-table-sub-total-${i}` }
         >
-          {Number(order[1].price * order[1].quantity).toFixed(2).replace('.', ',')}
+          {convertNumber(order.price * order.quantity)}
         </td>
         <td>
           <button
             data-testid={ `customer_checkout__element-order-table-remove-${i}` }
             type="button"
-            onClick={ () => removeItem(i, order[0]) }
+            onClick={ () => removeItem(i) }
           >
             X
           </button>
@@ -85,48 +78,42 @@ function CustomerCheckout() {
       <option key={ id } value={ id }>{name}</option>))
   );
 
-  // const initialState = () => {
-  //   setTotalPrice(getLocalStorage('totalPrice'));
-  //   setUserId(getLocalStorage('user').id);
-  //   // setToken(getLocalStorage('user').token);
-  //   // setOrders(Object.entries(getLocalStorage('carrinho')));
-  // };
-
   const getSellers = async () => {
-    const response = await axios.get('http://localhost:3001/seller');
+    const response = await axios.get('http://localhost:3001/sellers');
 
     setSellerId(response.data[0].id);
     setSellers(response.data);
   };
 
-  // const createSale = async () => {
-  //   const response = await axios({
-  //     method: 'post',
-  //     url: 'http://localhost:3001/orders',
-  //     headers: { authorization: token },
-  //     data: {
-  //       userId,
-  //       sellerId,
-  //       totalPrice,
-  //       deliveryAddress,
-  //       deliveryNumber,
-  //       saleDate: Date.now(),
-  //       status: 'Pendente',
-  //       cart: getLocalStorage('carrinho'),
-  //     },
-  //   });
-  //   return response.data;
-  // };
+  const createSale = async () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const productsToSale = products
+      .map(({ id, quantity }) => ({ productId: id, quantity }));
+    const response = await axios({
+      method: 'post',
+      url: 'http://localhost:3001/orders',
+      headers: { authorization: user.token },
+      data: {
+        userId: user.id,
+        sellerId,
+        totalPrice,
+        deliveryAddress,
+        deliveryNumber,
+        saleProducts: productsToSale,
+      },
+    });
+    console.log(response.data);
+    return response.data;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await createSale();
-    setLocalStorage('orderInfo', data);
     navigate(`/customer/orders/${data.id}`);
   };
 
   useEffect(() => {
-    // initialState();
+    totalPriceCheckout();
     getSellers();
   }, []);
 
@@ -152,7 +139,7 @@ function CustomerCheckout() {
       <p
         data-testid="customer_checkout__element-order-total-price"
       >
-        { Number(totalPrice).toFixed(2).replace('.', ',') }
+        {`Total: ${convertNumber(totalPrice)}`}
       </p>
       <section>
         <label htmlFor="seller">
@@ -171,8 +158,7 @@ function CustomerCheckout() {
         <Input
           name="Endereço"
           type="text"
-          data-testid="customer_checkout__input-address"
-          dataTestId="address"
+          dataTestId="customer_checkout__input-address"
           value={ deliveryAddress }
           onChange={ ({ target }) => setDeliveryAddress(target.value) }
           placeholder="Endereço"
@@ -182,8 +168,7 @@ function CustomerCheckout() {
         <Input
           name="Número"
           type="text"
-          data-testid="customer_checkout__input-address-number"
-          dataTestId="addressNumber"
+          dataTestId="customer_checkout__input-address-number"
           value={ deliveryNumber }
           onChange={ ({ target }) => setDeliveryNumber(target.value) }
           placeholder="número"
@@ -193,8 +178,7 @@ function CustomerCheckout() {
         <Button
           name="FINALIZAR PEDIDO"
           type="submit"
-          data-testid="customer_checkout__button-submit-order"
-          dataTestId="finishOrder"
+          dataTestId="customer_checkout__button-submit-order"
           disabled={ false }
           onClick={ (e) => handleSubmit(e) }
         />
