@@ -15,18 +15,20 @@ export default function Header() {
   return (
     <header>
       <nav>
+        { user.role === 'customer' && (
+          <Button
+            type="button"
+            name="Produtos"
+            dataTestId="customer_products__element-navbar-link-products"
+            onClick={ () => navigate('/customer/products') }
+            disabled={ false }
+          />)}
         <Button
           type="button"
-          name="Produtos"
-          dataTestId="customer_products__element-navbar-link-products"
-          onClick={ () => navigate('/customer/products') }
-          disabled={ false }
-        />
-        <Button
-          type="button"
-          name="Meus pedidos"
+          name={ user.role === 'customer' ? 'Meus Pedidos' : 'Pedidos' }
           dataTestId="customer_products__element-navbar-link-orders"
-          onClick={ () => navigate('/customer/checkout') }
+          onClick={ () => (user.role === 'customer'
+            ? navigate('/customer/orders') : navigate('/seller/orders')) }
           disabled={ false }
         />
       </nav>
