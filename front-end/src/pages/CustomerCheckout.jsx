@@ -15,6 +15,7 @@ function CustomerCheckout() {
   const [totalPrice, setTotalPrice] = useState(0);
   // const [token, setToken] = useState('');
   const [sellers, setSellers] = useState([]);
+  // const [userId, setUserId] = useState([]);
 
   const totalPriceCheckout = () => {
     const cart = JSON.parse(localStorage.getItem('carrinho'));
@@ -88,35 +89,36 @@ function CustomerCheckout() {
   // const initialState = () => {
   //   setTotalPrice(getLocalStorage('totalPrice'));
   //   setUserId(getLocalStorage('user').id);
-  //   // setToken(getLocalStorage('user').token);
-  //   // setOrders(Object.entries(getLocalStorage('carrinho')));
+  //   setToken(getLocalStorage('user').token);
+  //   setOrders(Object.entries(getLocalStorage('carrinho')));
   // };
 
   const getSellers = async () => {
-    const response = await axios.get('http://localhost:3001/seller');
+    const response = await axios.get('http://localhost:3001/');
 
     setSellerId(response.data[0].id);
     setSellers(response.data);
   };
 
-  // const createSale = async () => {
-  //   const response = await axios({
-  //     method: 'post',
-  //     url: 'http://localhost:3001/orders',
-  //     headers: { authorization: token },
-  //     data: {
-  //       userId,
-  //       sellerId,
-  //       totalPrice,
-  //       deliveryAddress,
-  //       deliveryNumber,
-  //       saleDate: Date.now(),
-  //       status: 'Pendente',
-  //       cart: getLocalStorage('carrinho'),
-  //     },
-  //   });
-  //   return response.data;
-  // };
+  const createSale = async () => {
+    const response = await axios({
+      method: 'post',
+      url: 'http://localhost:3001/orders',
+      headers: { authorization: token },
+      data: {
+        userId,
+        sellerId,
+        totalPrice,
+        deliveryAddress,
+        deliveryNumber,
+        saleProducts: [{
+          productId,
+          quantity,
+        }],
+      },
+    });
+    return response.data;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
