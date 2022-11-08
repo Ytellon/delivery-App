@@ -1,35 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import Button from '../components/button';
 import ProductList from '../components/productList';
+import { getRequest } from '../utils/requests';
 
 export default function OrderDetails() {
   const [order, setOrder] = useState();
 
-  const orderMock = {
-    id: 3,
-    seller: 'Fulana Pereira',
-    saleDate: '07/04/2021',
-    status: 'entregue',
-    products: [
-      {
-        id: 7,
-        name: 'Becks 330ml',
-        price: 4.99,
-        url_image: 'http://localhost:3001/images/becks_330ml.jpg',
-        quantity: 2,
-      },
-      {
-        id: 5,
-        name: 'Skol 269ml',
-        price: 2.19,
-        url_image: 'http://localhost:3001/images/skol_269ml.jpg',
-        quantity: 7,
-      },
-    ],
+  const getOrder = async () => {
+    const response = await getRequest(`/orders/${1}`);
+
+    setOrder(response);
   };
 
   useEffect(() => {
-    setOrder(orderMock);
+    getOrder();
   }, []);
 
   return (
@@ -46,7 +30,7 @@ export default function OrderDetails() {
               data-testid="customer_order_details
                 __element-order-details-label-seller-name"
             >
-              {`P. Vend: ${order.seller}`}
+              {`P. Vend: ${order.seller.name}`}
             </h3>
             <h3
               data-testid="customer_order_details__element-order-details-label-order-date"
@@ -68,9 +52,7 @@ export default function OrderDetails() {
             <h2
               data-testid="customer_order_details__element-order-total-price"
             >
-              {`TOTAL R$${(order.products
-                .reduce((prev, curr) => prev + curr.price * curr.quantity, 0))
-                .toFixed(2)}`}
+              {`TOTAL R$${order.totalPrice}`}
             </h2>
 
             <ProductList

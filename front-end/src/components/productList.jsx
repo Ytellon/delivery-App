@@ -19,17 +19,18 @@ export default function ProductList({
         <td
           data-testid={ `${datatestId}${'__element-order-table-quantity-'}${i}` }
         >
-          { product.quantity }
+          { product.SaleProduct.quantity }
         </td>
         <td
           data-testid={ `${datatestId}${'__element-order-table-unit-price-'}${i}` }
         >
-          { Number(product.quantity).toFixed(2).replace('.', ',') }
+          {Number(product.price).toFixed(2).replace('.', ',')}
         </td>
         <td
           data-testid={ `${datatestId}${'__element-order-table-sub-total-'}${i}` }
         >
-          {Number(product.price * product.quantity).toFixed(2).replace('.', ',') }
+          {Number(product.price * product.SaleProduct.quantity)
+            .toFixed(2).replace('.', ',')}
         </td>
         { hasRemoveButton && (
           <td>
