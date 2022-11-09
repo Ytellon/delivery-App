@@ -22,6 +22,18 @@ const saleController = {
       res.status(error.code || 500).json({ message: error.message });
     }
   },
+
+  getSaleById: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const sale = await saleService.getSaleById(id);
+
+      res.status(200).json(sale);
+    } catch (error) {
+      res.status(error.code || 500).json({ message: error.message });
+    }
+  },
 };
 
 module.exports = saleController;
