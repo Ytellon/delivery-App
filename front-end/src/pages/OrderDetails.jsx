@@ -4,21 +4,22 @@ import { useParams } from 'react-router-dom';
 import Button from '../components/button';
 import ProductList from '../components/productList';
 import { getRequest } from '../utils/requests';
+import Header from '../components/header';
 
 export default function OrderDetails() {
   const { id } = useParams();
 
   const [order, setOrder] = useState();
 
-  const getOrder = async () => {
-    const response = await getRequest(`/orders/${id}`);
-
-    setOrder(response);
-  };
-
   useEffect(() => {
+    const getOrder = async () => {
+      const response = await getRequest(`/orders/${id}`);
+
+      setOrder(response);
+    };
+
     getOrder();
-  }, []);
+  }, [id]);
 
   const datatestId = 'customer_order_details';
   const itemId = '__element-order-details-label-order-id';
@@ -33,6 +34,7 @@ export default function OrderDetails() {
 
   return (
     <div>
+      <Header />
       {
         order && (
           <div>
@@ -61,6 +63,8 @@ export default function OrderDetails() {
               dataTestId={ datatestId + checkId }
               name="MARCAR COMO ENTREGUE"
               disabled={ order.status !== 'Em Trânsito' }
+              onClick={ () => {} }
+              type="button"
             />
             <h2
               data-testid={ datatestId + totalPriceId }
@@ -70,7 +74,7 @@ export default function OrderDetails() {
 
             <ProductList
               datatestId={ datatestId }
-              products={ order.products }
+              products={ order?.products }
             />
           </div>
         )

@@ -9,9 +9,10 @@ export default function Order() {
   useEffect(() => {
     const getOrders = async () => {
       const user = JSON.parse(localStorage.getItem('user'));
-      const { data } = await getRequest('/orders', {
+      const data = await getRequest('/orders', {
         headers: { Authorization: user.token },
       });
+      console.log(data);
       setOrders(data);
     };
     getOrders();

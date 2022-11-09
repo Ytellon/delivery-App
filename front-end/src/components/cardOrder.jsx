@@ -9,7 +9,7 @@ export default function CardOrder({ order, roll }) {
 
   const routeId = roll === 'customer' ? '/customer/orders/' : '/seller/orders/';
 
-  const dataId = roll === 'customer' ? 'customer_order' : 'seller_order';
+  const dataId = roll === 'customer' ? 'customer_orders' : 'seller_orders';
 
   return (
     <div>

@@ -45,7 +45,7 @@ export default function Header() {
           dataTestId="customer_products__element-navbar-link-logout"
           onClick={ () => {
             navigate('/login');
-            localStorage.removeItem('user');
+            localStorage.clear();
           } }
           disabled={ false }
         />

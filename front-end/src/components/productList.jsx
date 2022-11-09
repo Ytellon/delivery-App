@@ -73,7 +73,14 @@ export default function ProductList({
 
 ProductList.propTypes = {
   datatestId: PropTypes.string.isRequired,
-  products: PropTypes.arrayOf.isRequired,
+  products: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    SaleProduct: PropTypes.shape({
+      quantity: PropTypes.number.isRequired,
+    }).isRequired,
+  })).isRequired,
   hasRemoveButton: PropTypes.bool,
   removeItem: PropTypes.func,
 };

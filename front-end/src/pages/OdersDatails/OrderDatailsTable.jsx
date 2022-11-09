@@ -75,3 +75,5 @@ function OrderDatailsTable(props) {
 OrderDatailsTable.propTypes = {
   orderId: PropTypes.number,
 }.isRequired;
+
+export default OrderDatailsTable;
