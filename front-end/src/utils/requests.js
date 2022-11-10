@@ -12,6 +12,12 @@ export const postRequest = async (endpoint, body, config) => {
   return data;
 };
 
+export const putRequest = async (endpoint, body, config) => {
+  const response = await api.put(endpoint, body, config);
+  const { data } = response;
+  return data;
+};
+
 export const getRequest = async (endpoint, config) => {
   const response = await api.get(endpoint, config);
   const { data } = response;
