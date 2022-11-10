@@ -60,11 +60,13 @@ export default function SellerOrderDetails() {
             <Button
               dataTestId={ datatestId + preparingCheckId }
               name="PREPARAR PEDIDO"
+              disabled={ order.status !== 'Pendente' }
               type="button"
             />
             <Button
               dataTestId={ datatestId + dispatchCheckId }
               name="SAIU PARA ENTREGA"
+              disabled={ order.status !== 'Preparando' }
               type="button"
             />
             <h2
