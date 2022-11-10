@@ -1,10 +1,10 @@
-import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Button from '../components/button';
 import ProductList from '../components/productList';
 import { getRequest } from '../utils/requests';
 import Header from '../components/header';
+import getFormattedDate from '../utils/getFormattedDate';
 
 export default function OrderDetails() {
   const { id } = useParams();
@@ -28,9 +28,6 @@ export default function OrderDetails() {
   const statusId = '__element-order-details-label-delivery-status';
   const checkId = '__button-delivery-check';
   const totalPriceId = '__element-order-total-price';
-
-  const getFormattedDate = (date) => moment(date, 'YYYY-MM-DD HH:mm:ss ZZ')
-    .format('DD/MM/YYYY');
 
   return (
     <div>
