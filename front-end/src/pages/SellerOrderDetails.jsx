@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Button from '../components/button';
 import ProductList from '../components/productList';
-import { getRequest, putRequest } from '../utils/requests';
 import Header from '../components/header';
 import getFormattedDate from '../utils/getFormattedDate';
-import { getLocalStorage } from '../utils/localStorage';
+import changeOrderStatus from '../utils/changeOrderStatus';
+import getOrderById from '../utils/getOrderById';
 
 export default function SellerOrderDetails() {
   const { id } = useParams();
@@ -14,33 +14,11 @@ export default function SellerOrderDetails() {
 
   useEffect(() => {
     const getOrder = async () => {
-      const response = await getRequest(`/orders/${id}`);
-
-      setOrder(response);
+      setOrder(await getOrderById(id));
     };
 
     getOrder();
   }, [id]);
-
-  const changeOrderStatus = async (status) => {
-    try {
-      const user = getLocalStorage('user');
-
-      const config = {
-        headers: {
-          authorization: user.token,
-        },
-      };
-
-      const body = {
-        status,
-      };
-
-      await putRequest(`/orders/${id}`, body, config);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const datatestId = 'seller_order_details';
   const itemId = '__element-order-details-label-order-id';
@@ -82,14 +60,20 @@ export default function SellerOrderDetails() {
               dataTestId={ datatestId + preparingCheckId }
               name="PREPARAR PEDIDO"
               disabled={ order.status !== 'Pendente' }
-              onClick={ () => changeOrderStatus('Preparando') }
+              onClick={ async () => {
+                await changeOrderStatus(id, 'Preparando');
+                setOrder(await getOrderById(id));
+              } }
               type="button"
             />
             <Button
               dataTestId={ datatestId + dispatchCheckId }
               name="SAIU PARA ENTREGA"
               disabled={ order.status !== 'Preparando' }
-              onClick={ () => changeOrderStatus('Em Trânsito') }
+              onClick={ async () => {
+                await changeOrderStatus(id, 'Em Trânsito');
+                setOrder(await getOrderById(id));
+              } }
               type="button"
             />
             <h2

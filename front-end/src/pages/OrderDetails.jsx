@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Button from '../components/button';
 import ProductList from '../components/productList';
-import { getRequest } from '../utils/requests';
 import Header from '../components/header';
 import getFormattedDate from '../utils/getFormattedDate';
+import changeOrderStatus from '../utils/changeOrderStatus';
+import getOrderById from '../utils/getOrderById';
 
 export default function OrderDetails() {
   const { id } = useParams();
@@ -13,9 +14,7 @@ export default function OrderDetails() {
 
   useEffect(() => {
     const getOrder = async () => {
-      const response = await getRequest(`/orders/${id}`);
-
-      setOrder(response);
+      setOrder(await getOrderById(id));
     };
 
     getOrder();
@@ -60,7 +59,10 @@ export default function OrderDetails() {
               dataTestId={ datatestId + checkId }
               name="MARCAR COMO ENTREGUE"
               disabled={ order.status !== 'Em Trânsito' }
-              onClick={ () => {} }
+              onClick={ async () => {
+                await changeOrderStatus(id, 'Entregue');
+                setOrder(await getOrderById(id));
+              } }
               type="button"
             />
             <h2
