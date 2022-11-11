@@ -34,6 +34,20 @@ const saleController = {
       res.status(error.code || 500).json({ message: error.message });
     }
   },
+
+  updateStatus: async (req, res) => {
+    try {
+      const { status } = req.body;
+      const { id } = req.params;
+
+      await saleService.updateStatus(id, status);
+
+      return res.status(204).json({ message: 'Atualizado' });
+    } catch (error) {
+      res.status(error.code || 500).json({ message: error.message });
+    }
+  },
+
 };
 
 module.exports = saleController;

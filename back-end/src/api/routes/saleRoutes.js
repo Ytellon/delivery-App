@@ -11,4 +11,6 @@ salesRoute.get('/orders/:id', saleController.getSaleById);
 
 salesRoute.get('/orders', saleController.getAllSales);
 
+salesRoute.put('/orders/:id', saleController.updateStatus);
+
 module.exports = salesRoute;
