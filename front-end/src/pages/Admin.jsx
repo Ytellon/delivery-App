@@ -100,8 +100,6 @@ export default function Admin() {
 
   return (
     <div>
-      { errorMessage
-        && <p data-testId="admin_manage__element-invalid-register">{ errorMessage }</p> }
       <form>
         <h1>Cadastrar novo usuário</h1>
         <Input
@@ -143,6 +141,8 @@ export default function Admin() {
       <div>
         <UserList users={ users } deleteUser={ deleteUser } />
       </div>
+      {errorMessage
+        && <p data-testId="admin_manage__element-invalid-register">{errorMessage}</p>}
     </div>
   );
 }
