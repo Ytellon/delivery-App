@@ -1,10 +1,11 @@
-import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Button from '../components/button';
 import ProductList from '../components/productList';
-import { getRequest } from '../utils/requests';
 import Header from '../components/header';
+import getOrderById from '../utils/getOrderById';
+import getFormattedDate from '../utils/getFormattedDate';
+import changeOrderStatus from '../utils/changeOrderStatus';
 import './OrderDetails.css';
 
 export default function OrderDetails() {
@@ -14,9 +15,7 @@ export default function OrderDetails() {
 
   useEffect(() => {
     const getOrder = async () => {
-      const response = await getRequest(`/orders/${id}`);
-
-      setOrder(response);
+      setOrder(await getOrderById(id));
     };
 
     getOrder();
@@ -29,9 +28,6 @@ export default function OrderDetails() {
   const statusId = '__element-order-details-label-delivery-status';
   const checkId = '__button-delivery-check';
   const totalPriceId = '__element-order-total-price';
-
-  const getFormattedDate = (date) => moment(date, 'YYYY-MM-DD HH:mm:ss ZZ')
-    .format('DD/MM/YYYY');
 
   return (
     <div>
@@ -82,7 +78,10 @@ export default function OrderDetails() {
               dataTestId={ datatestId + checkId }
               name="MARCAR COMO ENTREGUE"
               disabled={ order.status !== 'Em Trânsito' }
-              onClick={ () => {} }
+              onClick={ async () => {
+                await changeOrderStatus(id, 'Entregue');
+                setOrder(await getOrderById(id));
+              } }
               type="button"
             />
 

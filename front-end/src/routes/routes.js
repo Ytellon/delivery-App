@@ -8,6 +8,7 @@ import CustomerOrders from '../pages/Order';
 import OrderDetails from '../pages/OrderDetails';
 import Admin from '../pages/Admin';
 import SellerOrder from '../pages/SellerOrder';
+import SellerOrderDetails from '../pages/SellerOrderDetails';
 
 export default function RouteDelivery() {
   return (
@@ -21,7 +22,7 @@ export default function RouteDelivery() {
       <Route path="/customer/orders/:id" element={ <OrderDetails /> } />
       <Route path="/admin/manage" element={ <Admin /> } />
       <Route path="/seller/orders" element={ <SellerOrder /> } />
-      <Route path="/seller/orders/:id" element={ <p> tela de detalhe pedido </p> } />
+      <Route path="/seller/orders/:id" element={ <SellerOrderDetails /> } />
     </Routes>
   );
 }

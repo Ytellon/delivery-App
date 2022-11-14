@@ -145,6 +145,8 @@ export default function Admin() {
       <div>
         <UserList users={ users } deleteUser={ deleteUser } />
       </div>
+      {errorMessage
+        && <p data-testId="admin_manage__element-invalid-register">{errorMessage}</p>}
     </div>
   );
 }
