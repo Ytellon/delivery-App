@@ -26,10 +26,6 @@ hr {
   text-align: start;
 }
 
-label {
-  margin-bottom: 10px;
-}
-
 form {
   background-color: var(--color1);
   margin: 30px auto;
@@ -63,13 +59,26 @@ button {
 
 input {
   background-color: var(--color1);
-  min-width: 400px;
   padding: 8px 10px;
   margin: 3px;
   color: var(--color2);
   border: 1px var(--color3) solid;
   border-radius: var(--border-radius1);
   font-size: 16px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.large-input {
+  min-width: 400px;
 }
 
 input::placeholder {

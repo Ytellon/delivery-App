@@ -61,6 +61,7 @@ export default function Login() {
         <h1>Login</h1>
         <hr />
         <Input
+          classes="large-input"
           name="Email"
           dataTestId="common_login__input-email"
           type="email"
@@ -68,6 +69,7 @@ export default function Login() {
           placeholder="Digite seu email"
         />
         <Input
+          classes="large-input"
           name="Senha"
           dataTestId="common_login__input-password"
           type="password"

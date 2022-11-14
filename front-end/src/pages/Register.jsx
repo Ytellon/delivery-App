@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { postRequest } from '../utils/requests';
 import Button from '../components/button';
 import Input from '../components/input';
+import './Register.css';
 
 export default function RegisterForm() {
   const navigate = useNavigate();
@@ -56,6 +57,7 @@ export default function RegisterForm() {
         <h1>Cadastro</h1>
         <hr />
         <Input
+          classes="large-input"
           type="text"
           name="Nome"
           dataTestId="common_register__input-name"
@@ -64,6 +66,7 @@ export default function RegisterForm() {
           placeholder="Digite seu Nome"
         />
         <Input
+          classes="large-input"
           type="email"
           name="Email"
           dataTestId="common_register__input-email"
@@ -72,6 +75,7 @@ export default function RegisterForm() {
           placeholder=" Digite seu email"
         />
         <Input
+          classes="large-input"
           type="password"
           name="Senha"
           dataTestId="common_register__input-password"

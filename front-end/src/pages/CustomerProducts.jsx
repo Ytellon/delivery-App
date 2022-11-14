@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/header';
 import ProductCards from '../components/productCards';
 import { getProducts } from '../utils/requests';
+import './CustomerProducts.css';
 
 export default function CustomerProducts() {
   const navigate = useNavigate();
@@ -48,16 +49,19 @@ export default function CustomerProducts() {
   return (
     <div>
       <Header />
-      {
-        products?.map((product, index) => (
-          <ProductCards
-            key={ index }
-            product={ product }
-            handleOrders={ handleOrders }
-          />
-        ))
-      }
+      <div className="products">
+        {
+          products?.map((product, index) => (
+            <ProductCards
+              key={ index }
+              product={ product }
+              handleOrders={ handleOrders }
+            />
+          ))
+        }
+      </div>
       <button
+        className="button-cart"
         type="button"
         data-testid="customer_products__button-cart"
         onClick={ () => navigate('/customer/checkout') }

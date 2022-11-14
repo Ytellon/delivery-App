@@ -1,0 +1,25 @@
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 30px 30px 60px;
+}
+
+label {
+  margin: 0;
+}
+
+.button-cart {
+  border-radius: var(--border-radius2);
+  bottom: 10px;
+  font-size: 18px;
+  left: 50%;
+  min-width: 275px;
+  padding: 16px 20px;
+  position: fixed;
+  transform: translate(-50%);
+}
+
+.button-cart span {
+  color: var(--color1);
+}
