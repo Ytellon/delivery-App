@@ -15,8 +15,3 @@ header {
   color: var(--color4);
   padding: 0 20px;
 }
-
-.hr-vertical {
-  border-right: 1px var(--color3) solid;
-  width: 0;
-}

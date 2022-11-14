@@ -2,7 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 30px 30px 60px;
+  padding: 30px 60px 60px;
 }
 
 label {

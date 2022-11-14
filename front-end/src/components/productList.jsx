@@ -5,8 +5,9 @@ export default function ProductList({
 }) {
   const renderOrders = () => (
     products.map((product, i) => (
-      <tr key={ i }>
+      <tr className={ (i < products.length - 1) && 'tr-border' } key={ i }>
         <td
+          className="td-item"
           data-testid={ `${datatestId}${'__element-order-table-item-number-'}${i}` }
         >
           {i + 1}
@@ -14,12 +15,12 @@ export default function ProductList({
         <td
           data-testid={ `${datatestId}${'__element-order-table-name-'}${i}` }
         >
-          { product.name }
+          {product.name}
         </td>
         <td
           data-testid={ `${datatestId}${'__element-order-table-quantity-'}${i}` }
         >
-          { product.SaleProduct.quantity }
+          {product.SaleProduct.quantity}
         </td>
         <td
           data-testid={ `${datatestId}${'__element-order-table-unit-price-'}${i}` }
@@ -32,7 +33,7 @@ export default function ProductList({
           {Number(product.price * product.SaleProduct.quantity)
             .toFixed(2).replace('.', ',')}
         </td>
-        { hasRemoveButton && (
+        {hasRemoveButton && (
           <td>
             <button
               data-testid={ `customer_checkout__element-order-table-remove-${i}` }

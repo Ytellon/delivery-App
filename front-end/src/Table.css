@@ -15,5 +15,11 @@ th {
 }
 
 th, td {
-  padding: 0 10px;
+  padding: 10px;
+}
+
+td button {
+  margin: 0;
+  padding: 5px;
+  width: 28px;
 }

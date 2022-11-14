@@ -10,6 +10,7 @@
 body {
   font-family: 'Montserrat', sans-serif;
   text-align: center;
+  margin-bottom: 60px;
 }
 
 h1 {
@@ -37,6 +38,15 @@ button {
   font-weight: 500;
   border-radius: var(--border-radius1);
   font-size: 17px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: var(--color3);
+  cursor: default;
 }
 
 .white-button {
@@ -96,4 +106,13 @@ input::placeholder {
 
 .login-register-container {
   margin: 60px 20px;
+}
+
+.hr-vertical {
+  border-right: 1px var(--color3) solid;
+  width: 0;
+}
+
+.hidden {
+  display: none;
 }

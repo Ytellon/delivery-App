@@ -61,11 +61,11 @@ export default function CustomerProducts() {
         }
       </div>
       <button
-        className="button-cart"
+        className={ `button-cart ${(totalPrice === '0,00') && 'hidden'}` }
         type="button"
         data-testid="customer_products__button-cart"
         onClick={ () => navigate('/customer/checkout') }
-        disabled={ totalPrice === 0 }
+        disabled={ totalPrice === '0,00' }
       >
         Finalizar Pedido - R$
         <span data-testid="customer_products__checkout-bottom-value">

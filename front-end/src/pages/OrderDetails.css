@@ -1,0 +1,15 @@
+.order-details-item {
+  margin: 4px;
+}
+
+.order-details-item span {
+  color: var(--color4);
+}
+
+.order-details-button {
+  margin: 30px;
+}
+
+.order-details-price, .order-details-price span {
+  margin: 20px 0;
+}

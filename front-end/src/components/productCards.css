@@ -1,6 +1,6 @@
 .product-card {
-  margin: 30px 10px;
-  width: 300px;
+  margin: 30px 4px;
+  width: 240px;
 }
 
 img {
@@ -38,9 +38,8 @@ img {
 }
 
 .product-input {
-  border-left: 0;
+  border: 1px var(--color4) solid;
   border-radius: 0;
-  border-right: 0;
   height: 30px;
   margin: 0;
   padding: 5px;
