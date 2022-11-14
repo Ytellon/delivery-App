@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { postRequest } from '../utils/requests';
 import Button from '../components/button';
 import Input from '../components/input';
+import './Login.css';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -55,23 +56,24 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form>
+    <div className="login">
+      <form className="vertical-container">
+        <h1>Login</h1>
+        <hr />
         <Input
-          name="Login"
+          name="Email"
           dataTestId="common_login__input-email"
           type="email"
           onChange={ (e) => setEmail(e.target.value) }
+          placeholder="Digite seu email"
         />
-
         <Input
           name="Senha"
           dataTestId="common_login__input-password"
           type="password"
           onChange={ (e) => setPassword(e.target.value) }
+          placeholder="Digite sua senha"
         />
-
         <Button
           name="Log in"
           type="submit"
@@ -79,8 +81,8 @@ export default function Login() {
           disabled={ buttonDisable }
           onClick={ handleSubmit }
         />
-
         <Button
+          classes="white-button"
           name="Ainda não tenho conta"
           type="button"
           dataTestId="common_login__button-register"
