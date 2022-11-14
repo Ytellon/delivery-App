@@ -16,16 +16,20 @@ export default function Header() {
   return (
     <header className="horizontal-container">
       <nav className="horizontal-container">
-        { user.role === 'customer' && (
-          <Button
-            classes="text-button"
-            type="button"
-            name="Produtos"
-            dataTestId="customer_products__element-navbar-link-products"
-            onClick={ () => navigate('/customer/products') }
-            disabled={ false }
-          />)}
-        <hr className="hr-vertical" />
+        {user.role === 'customer' && (
+          <>
+            <Button
+              classes="text-button"
+              type="button"
+              name="Produtos"
+              dataTestId="customer_products__element-navbar-link-products"
+              onClick={ () => navigate('/customer/products') }
+              disabled={ false }
+            />
+            <hr className="hr-vertical" />
+          </>
+        )}
+
         <Button
           classes="text-button"
           type="button"

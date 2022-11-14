@@ -31,3 +31,9 @@
 .order-content div {
   margin: 4px;
 }
+
+.order-address {
+  border-top: 1px var(--color3) solid;
+  margin: 6px;
+  padding: 8px;
+}

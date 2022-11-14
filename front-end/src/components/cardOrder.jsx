@@ -38,15 +38,18 @@ export default function CardOrder({ order, roll }) {
             <p data-testid={ `${dataId}__element-card-price-${order.id}` }>
               {convertNumber(order.totalPrice)}
             </p>
-            { roll === 'seller' && (
-              <p data-testid={ `seller_orders__element-card-address-${order.id}` }>
-                {
-                  `${order.deliveryAddress}, ${order.deliveryNumber}`
-                }
-              </p>
-            )}
           </div>
         </div>
+        {roll === 'seller' && (
+          <p
+            className="order-address"
+            data-testid={ `seller_orders__element-card-address-${order.id}` }
+          >
+            {
+              `${order.deliveryAddress}, ${order.deliveryNumber}`
+            }
+          </p>
+        )}
       </Link>
     </div>
   );
