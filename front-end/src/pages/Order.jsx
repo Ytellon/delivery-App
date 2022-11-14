@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import CardOrder from '../components/cardOrder';
 import Header from '../components/header';
 import { getRequest } from '../utils/requests';
+import './Order.css';
 
 export default function Order() {
   const [orders, setOrders] = useState([]);
@@ -21,9 +22,11 @@ export default function Order() {
   return (
     <div>
       <Header />
-      {orders?.map((order, index) => (
-        <CardOrder key={ index } order={ order } roll="customer" />
-      ))}
+      <div className="horizontal-container orders">
+        {orders?.map((order, index) => (
+          <CardOrder key={ index } order={ order } roll="customer" />
+        ))}
+      </div>
     </div>
   );
 }

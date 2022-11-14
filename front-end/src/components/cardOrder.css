@@ -1,0 +1,33 @@
+.order-card {
+  border: 1px var(--color4) solid;
+  border-radius: var(--border-radius1);
+  margin: 10px;
+  min-width: 200px;
+}
+
+.order-title {
+  background-color: var(--color4);
+}
+
+.order-title p {
+  color: var(--color1);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.order-title, .order-content {
+  padding: 10px;
+}
+
+.order-description {
+  color: var(--color4);
+  font-weight: 600;
+}
+
+.order-content {
+  justify-content: center;
+}
+
+.order-content div {
+  margin: 4px;
+}
