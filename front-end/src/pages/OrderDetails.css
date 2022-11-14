@@ -13,3 +13,7 @@
 .order-details-price, .order-details-price span {
   margin: 20px 0;
 }
+
+.order-button-container {
+  margin: 30px 0;
+}

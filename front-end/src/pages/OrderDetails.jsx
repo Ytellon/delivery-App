@@ -66,7 +66,7 @@ export default function OrderDetails() {
               </h3>
             </div>
             <h2 className="order-details-price">
-              R$
+              {'R$ '}
               <span
                 data-testid={ datatestId + totalPriceId }
               >
