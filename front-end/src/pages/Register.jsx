@@ -53,7 +53,7 @@ export default function RegisterForm() {
 
   return (
     <div>
-      <form className="vertical-container">
+      <form className="vertical-container login-register-container">
         <h1>Cadastro</h1>
         <hr />
         <Input

@@ -5,6 +5,7 @@ import Button from '../components/button';
 import Input from '../components/input';
 import Header from '../components/header';
 import convertNumber from '../utils/convertNumber';
+import './CustomerCheckout.css';
 
 function CustomerCheckout() {
   const navigate = useNavigate();
@@ -34,8 +35,9 @@ function CustomerCheckout() {
 
   const renderOrders = () => (
     products?.map((order, i) => (
-      <tr key={ i }>
+      <tr className={ (i < products.length - 1) && 'tr-border' } key={ i }>
         <td
+          className="td-item"
           data-testid={ `customer_checkout__element-order-table-item-number-${i}` }
         >
           {i + 1}
@@ -120,70 +122,71 @@ function CustomerCheckout() {
   return (
     <div>
       <Header />
-      <h2>Finalizar Pedido</h2>
-      <table>
-        <thead>
-          <tr>
+      <div className="vertical-container checkout">
+        <h1 className="title">Finalizar Pedido</h1>
+        <table>
+          <thead>
             <th>Item</th>
             <th>Descrição</th>
             <th>Quantidade</th>
             <th>Valor Unitário</th>
             <th>Sub-total</th>
             <th>Remover Item</th>
-          </tr>
-        </thead>
-        <tbody>
-          {renderOrders()}
-        </tbody>
-      </table>
-      <p
-        data-testid="customer_checkout__element-order-total-price"
-      >
-        {`Total: ${convertNumber(totalPrice)}`}
-      </p>
-      <section>
-        <label htmlFor="seller">
-          P. Vendedora Responsável:
-          <select
-            name="seller"
-            id="seller"
-            data-testid="customer_checkout__select-seller"
-            value={ sellerId }
-            onChange={ ({ target }) => setSellerId(target.value) }
-          >
-            { renderSellersOptions() }
-          </select>
-        </label>
+          </thead>
+          <tbody>
+            {renderOrders()}
+          </tbody>
+        </table>
+        <h1
+          className="checkout-price"
+          data-testid="customer_checkout__element-order-total-price"
+        >
+          {`Total: ${convertNumber(totalPrice)}`}
+        </h1>
+        <form className="horizontal-container">
+          <label htmlFor="seller">
+            <h4>P. Vendedora Responsável</h4>
+            <select
+              name="seller"
+              id="seller"
+              data-testid="customer_checkout__select-seller"
+              value={ sellerId }
+              onChange={ ({ target }) => setSellerId(target.value) }
+            >
+              { renderSellersOptions() }
+            </select>
+          </label>
 
-        <Input
-          name="Endereço"
-          type="text"
-          dataTestId="customer_checkout__input-address"
-          value={ deliveryAddress }
-          onChange={ ({ target }) => setDeliveryAddress(target.value) }
-          placeholder="Endereço"
-          disabled={ false }
-        />
+          <Input
+            classes="large-input"
+            name="Endereço"
+            type="text"
+            dataTestId="customer_checkout__input-address"
+            value={ deliveryAddress }
+            onChange={ ({ target }) => setDeliveryAddress(target.value) }
+            placeholder="Endereço"
+            disabled={ false }
+          />
 
-        <Input
-          name="Número"
-          type="text"
-          dataTestId="customer_checkout__input-address-number"
-          value={ deliveryNumber }
-          onChange={ ({ target }) => setDeliveryNumber(target.value) }
-          placeholder="número"
-          disabled={ false }
-        />
-
+          <Input
+            name="Número"
+            type="text"
+            dataTestId="customer_checkout__input-address-number"
+            value={ deliveryNumber }
+            onChange={ ({ target }) => setDeliveryNumber(target.value) }
+            placeholder="número"
+            disabled={ false }
+          />
+        </form>
         <Button
+          classes="checkout-button"
           name="FINALIZAR PEDIDO"
           type="submit"
           dataTestId="customer_checkout__button-submit-order"
           disabled={ false }
           onClick={ (e) => handleSubmit(e) }
         />
-      </section>
-
+      </div>
     </div>
   );
 }

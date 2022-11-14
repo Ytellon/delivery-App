@@ -57,7 +57,7 @@ export default function Login() {
 
   return (
     <div className="login">
-      <form className="vertical-container">
+      <form className="vertical-container login-register-container">
         <h1>Login</h1>
         <hr />
         <Input

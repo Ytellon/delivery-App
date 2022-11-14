@@ -1,0 +1,19 @@
+table {
+  border-collapse: collapse;
+}
+
+th {
+  color: var(--color4);
+}
+
+.td-item {
+  font-weight: 700;
+}
+
+.tr-border {
+  border-bottom: 1px var(--color3) solid;
+}
+
+th, td {
+  padding: 0 10px;
+}
