@@ -80,6 +80,7 @@ export default function RegisterForm() {
           placeholder="Digite sua senha"
         />
         <Button
+          classes="large-button"
           type="button"
           name="Cadastrar"
           dataTestId="common_register__button-register"

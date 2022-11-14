@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from './button';
+import './header.css';
 
 export default function Header() {
   const navigate = useNavigate();
@@ -13,17 +14,20 @@ export default function Header() {
   }, []);
 
   return (
-    <header>
-      <nav>
+    <header className="horizontal-container">
+      <nav className="horizontal-container">
         { user.role === 'customer' && (
           <Button
+            classes="text-button"
             type="button"
             name="Produtos"
             dataTestId="customer_products__element-navbar-link-products"
             onClick={ () => navigate('/customer/products') }
             disabled={ false }
           />)}
+        <hr className="hr-vertical" />
         <Button
+          classes="text-button"
           type="button"
           name={ user.role === 'customer' ? 'Meus Pedidos' : 'Pedidos' }
           dataTestId="customer_products__element-navbar-link-orders"
@@ -32,14 +36,16 @@ export default function Header() {
           disabled={ false }
         />
       </nav>
-      <nav>
+      <nav className="user-menu">
         <h3
           data-testid="customer_products__element-navbar-user-full-name"
         >
           {user?.name}
 
         </h3>
+        <hr className="hr-vertical" />
         <Button
+          classes="text-button"
           type="button"
           name="Sair"
           dataTestId="customer_products__element-navbar-link-logout"

@@ -1,0 +1,22 @@
+header {
+  border-bottom: 1px var(--color3) solid;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  max-width: 1200px;
+}
+
+.user-menu {
+  align-items: center;
+  display: flex;
+}
+
+.user-menu h3 {
+  color: var(--color4);
+  padding: 0 20px;
+}
+
+.hr-vertical {
+  border-right: 1px var(--color3) solid;
+  width: 0;
+}

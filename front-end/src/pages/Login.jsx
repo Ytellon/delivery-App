@@ -75,6 +75,7 @@ export default function Login() {
           placeholder="Digite sua senha"
         />
         <Button
+          classes="large-button"
           name="Log in"
           type="submit"
           dataTestId="common_login__button-login"
