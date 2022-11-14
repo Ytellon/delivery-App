@@ -93,7 +93,14 @@ export default function RegisterForm() {
         />
       </form>
       { errorMessage
-      && <p data-testId="common_register__element-invalid_register">{ errorMessage }</p> }
+        && (
+          <p
+            className="error-message"
+            data-testId="common_register__element-invalid_register"
+          >
+            {errorMessage}
+          </p>
+        )}
     </div>
   );
 }

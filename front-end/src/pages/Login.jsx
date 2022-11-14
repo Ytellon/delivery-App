@@ -93,7 +93,14 @@ export default function Login() {
         />
       </form>
       { errorMessage
-        && <p data-testId="common_login__element-invalid-email">{ errorMessage }</p> }
+        && (
+          <p
+            className="error-message"
+            data-testId="common_login__element-invalid-email"
+          >
+            {errorMessage}
+          </p>
+        )}
     </div>
   );
 }
