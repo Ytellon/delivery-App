@@ -1,0 +1,9 @@
+.admin-register-user {
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+
+.admin-register-user button {
+  margin: 0;
+}

@@ -5,7 +5,7 @@ export default function UserList({ users, deleteUser }) {
   return (
     <div>
       <div>
-        <h2>Lista de usuários</h2>
+        <h2 className="subtitle">Lista de usuários</h2>
         {
           users.length > 0 && (
             <table>
@@ -26,6 +26,7 @@ export default function UserList({ users, deleteUser }) {
                     email={ user.email }
                     role={ user.role }
                     deleteUser={ deleteUser }
+                    classes={ (index < users.length - 1) && 'tr-border' }
                   />
                 ))
               }

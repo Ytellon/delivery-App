@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 
-export default function UserRow({ number, id, name, email, role, deleteUser }) {
+export default function UserRow({ number, id, name, email, role, deleteUser, classes }) {
   return (
-    <tr>
+    <tr className={ classes }>
       <td
+        className="td-item"
         data-testid={
           `admin_manage__element-user-table-item-number-${number}`
         }
@@ -36,7 +37,7 @@ export default function UserRow({ number, id, name, email, role, deleteUser }) {
             `admin_manage__element-user-table-remove-${number}`
           }
         >
-          Excluir
+          X
         </button>
       </td>
     </tr>
@@ -50,4 +51,5 @@ UserRow.propTypes = {
   email: PropTypes.string.isRequired,
   role: PropTypes.string.isRequired,
   deleteUser: PropTypes.func.isRequired,
+  classes: PropTypes.string.isRequired,
 };

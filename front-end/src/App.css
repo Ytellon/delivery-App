@@ -108,6 +108,10 @@ input::placeholder {
   margin: 60px 20px;
 }
 
+.login-register-container label {
+  margin: 6px 0;
+}
+
 .hr-vertical {
   border-right: 1px var(--color3) solid;
   width: 0;
@@ -119,4 +123,12 @@ input::placeholder {
 
 a {
   text-decoration: none;
+}
+
+.subtitle {
+  margin: 30px 0;
+}
+
+.error-message {
+  margin: 10px;
 }

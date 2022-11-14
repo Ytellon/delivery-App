@@ -5,6 +5,7 @@ import Input from '../components/input';
 import UserList from '../components/userList';
 import { getLocalStorage } from '../utils/localStorage';
 import { deleteRequest, getRequest, postRequest } from '../utils/requests';
+import './Admin.css';
 
 export default function Admin() {
   const [users, setUsers] = useState([]);
@@ -103,9 +104,15 @@ export default function Admin() {
     <div>
       <Header />
       { errorMessage
-        && <p data-testId="admin_manage__element-invalid-register">{ errorMessage }</p> }
-      <form>
-        <h1>Cadastrar novo usuário</h1>
+        && (
+          <p
+            className="error-message"
+            data-testId="admin_manage__element-invalid-register"
+          >
+            {errorMessage}
+          </p>)}
+      <h2 className="subtitle">Cadastrar novo usuário</h2>
+      <form className="horizontal-container admin-register-user">
         <Input
           name="Nome"
           dataTestId="admin_manage__input-name"
@@ -142,7 +149,7 @@ export default function Admin() {
           dataTestId="admin_manage__button-register"
         />
       </form>
-      <div>
+      <div className="vertical-container">
         <UserList users={ users } deleteUser={ deleteUser } />
       </div>
       {errorMessage
