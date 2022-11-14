@@ -8,7 +8,7 @@ import './CustomerProducts.css';
 export default function CustomerProducts() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState('0,00');
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
