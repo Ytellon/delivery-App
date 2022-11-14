@@ -52,8 +52,9 @@ export default function RegisterForm() {
 
   return (
     <div>
-      <h1>Cadastro</h1>
-      <form>
+      <form className="vertical-container">
+        <h1>Cadastro</h1>
+        <hr />
         <Input
           type="text"
           name="Nome"
