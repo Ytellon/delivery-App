@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Button from '../components/button';
+import Header from '../components/header';
 import Input from '../components/input';
 import UserList from '../components/userList';
 import { getLocalStorage } from '../utils/localStorage';
@@ -100,6 +101,7 @@ export default function Admin() {
 
   return (
     <div>
+      <Header />
       { errorMessage
         && <p data-testId="admin_manage__element-invalid-register">{ errorMessage }</p> }
       <form>

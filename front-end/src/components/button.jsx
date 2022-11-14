@@ -1,9 +1,10 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-export default function Button({ type, name, dataTestId, onClick, disabled }) {
+export default function Button({ type, name, dataTestId, onClick, disabled, classes }) {
   return (
     <button
+      className={ classes }
       type={ type === 'submit' ? 'submit' : 'button' }
       data-testid={ dataTestId }
       onClick={ onClick }
@@ -21,4 +22,5 @@ Button.propTypes = {
   dataTestId: propTypes.string.isRequired,
   onClick: propTypes.func.isRequired,
   disabled: propTypes.bool.isRequired,
+  classes: propTypes.string.isRequired,
 };

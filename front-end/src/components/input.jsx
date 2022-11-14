@@ -1,10 +1,11 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import './input.css';
 
 export default function Input({ type, name, dataTestId, value, onChange, placeholder }) {
   return (
     <label htmlFor={ name }>
-      { name }
+      <h4 className="align-start">{ name }</h4>
       <input
         type={ type }
         name={ name }
