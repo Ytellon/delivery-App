@@ -152,8 +152,6 @@ export default function Admin() {
       <div className="vertical-container">
         <UserList users={ users } deleteUser={ deleteUser } />
       </div>
-      {errorMessage
-        && <p data-testId="admin_manage__element-invalid-register">{errorMessage}</p>}
     </div>
   );
 }
